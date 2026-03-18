@@ -1,0 +1,1286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bighi Brothers — Growth Optimization Map</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=EB+Garamond:ital,wght@0,400;1,400&family=Cormorant+Garamond:wght@400;500;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --cream: #F5EFE0; --forest: #1C3A2E; --amber: #C8831A; --amberl: #E8A830;
+  --offwhite: #FAF7F2; --charcoal: #2D2D2D; --warm: #8C8070; --mist: #EDE8DC;
+  --border: rgba(28,58,46,0.10);
+  --reorder: #C0392B;    --reorder-bg: rgba(192,57,43,0.06);
+  --routine: #1C3A2E;    --routine-bg: rgba(28,58,46,0.06);
+  --capture: #6B4C9A;    --capture-bg: rgba(107,76,154,0.06);
+  --upsell:  #C8831A;    --upsell-bg:  rgba(200,131,26,0.06);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: 'EB Garamond', serif; background: var(--offwhite); color: var(--charcoal); font-size: 16px; line-height: 1.7; }
+
+/* ══ LAYOUT ══ */
+.layout { display: grid; grid-template-columns: 280px 1fr; min-height: 100vh; }
+aside { background: var(--forest); position: sticky; top: 0; height: 100vh; overflow-y: auto; padding: 0; display: flex; flex-direction: column; }
+main { overflow-y: auto; }
+
+/* ══ SIDEBAR ══ */
+.sb-top { padding: 28px 24px 20px; border-bottom: 1px solid rgba(245,239,224,0.08); }
+.sb-logo { font-family: 'Cormorant Garamond', serif; font-size: 0.85rem; letter-spacing: 0.2em; text-transform: uppercase; color: var(--amberl); margin-bottom: 3px; }
+.sb-title { font-family: 'DM Mono', monospace; font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(245,239,224,0.3); }
+
+.sb-legend { padding: 16px 20px; border-bottom: 1px solid rgba(245,239,224,0.06); }
+.legend-label { font-family: 'DM Mono', monospace; font-size: 0.52rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(245,239,224,0.3); margin-bottom: 10px; }
+.legend-item { display: flex; align-items: center; gap: 8px; padding: 4px 0; font-family: 'Cormorant Garamond', serif; font-size: 0.8rem; letter-spacing: 0.06em; color: rgba(245,239,224,0.65); cursor: pointer; transition: color 0.2s; }
+.legend-item:hover { color: rgba(245,239,224,0.9); }
+.legend-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+.dot-reorder { background: var(--reorder); }
+.dot-routine { background: #4CAF50; }
+.dot-capture { background: #9C6DD8; }
+.dot-upsell  { background: var(--amber); }
+
+.sb-nav { padding: 12px 12px; flex: 1; overflow-y: auto; }
+.sn-section { margin-bottom: 4px; }
+.sn-label { font-family: 'DM Mono', monospace; font-size: 0.52rem; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(245,239,224,0.22); padding: 8px 12px 4px; }
+.sn-link { display: flex; align-items: center; justify-content: space-between; font-family: 'Cormorant Garamond', serif; font-size: 0.82rem; color: rgba(245,239,224,0.5); padding: 6px 12px; border-radius: 2px; cursor: pointer; transition: all 0.2s; text-decoration: none; }
+.sn-link:hover, .sn-link.active { background: rgba(245,239,224,0.07); color: rgba(245,239,224,0.9); }
+.sn-link.active { color: var(--amberl); }
+.sn-dots { display: flex; gap: 3px; }
+.sn-dot { width: 5px; height: 5px; border-radius: 50%; opacity: 0.7; }
+
+.sb-score { padding: 16px 20px; border-top: 1px solid rgba(245,239,224,0.07); }
+.score-label { font-family: 'DM Mono', monospace; font-size: 0.52rem; letter-spacing: 0.18em; text-transform: uppercase; color: rgba(245,239,224,0.3); margin-bottom: 10px; }
+.score-bars { display: flex; flex-direction: column; gap: 6px; }
+.score-bar { display: flex; align-items: center; gap: 8px; }
+.sb-name { font-family: 'DM Mono', monospace; font-size: 0.58rem; color: rgba(245,239,224,0.45); width: 56px; flex-shrink: 0; }
+.sb-track { flex: 1; height: 3px; background: rgba(245,239,224,0.1); border-radius: 100px; overflow: hidden; }
+.sb-fill { height: 100%; border-radius: 100px; transition: width 1s cubic-bezier(0.25,0.46,0.45,0.94); }
+.sb-val { font-family: 'DM Mono', monospace; font-size: 0.55rem; color: rgba(245,239,224,0.3); width: 20px; text-align: right; }
+
+/* ══ TOP BAR ══ */
+.top-bar { background: var(--cream); border-bottom: 1px solid var(--border); padding: 14px 56px; display: flex; align-items: center; justify-content: space-between; position: sticky; top: 0; z-index: 50; }
+.tb-left { display: flex; align-items: center; gap: 12px; }
+.tb-title { font-family: 'Cormorant Garamond', serif; font-size: 0.82rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--forest); }
+.tb-sep { color: var(--border); }
+.tb-sub { font-family: 'DM Mono', monospace; font-size: 0.58rem; color: var(--warm); }
+.tb-pills { display: flex; gap: 6px; }
+.tb-pill { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.08em; padding: 4px 10px; border-radius: 100px; cursor: pointer; transition: all 0.2s; border: 1px solid transparent; }
+.tb-pill.all     { background: var(--forest); color: var(--cream); }
+.tb-pill.reorder { border-color: var(--reorder); color: var(--reorder); }
+.tb-pill.routine { border-color: #4CAF50; color: #2E7D32; }
+.tb-pill.capture { border-color: #9C6DD8; color: #6B4C9A; }
+.tb-pill.upsell  { border-color: var(--amber); color: var(--amber); }
+.tb-pill:hover   { opacity: 0.75; }
+
+/* ══ PAGE SECTIONS ══ */
+.page-section { padding: 48px 56px; border-bottom: 1px solid var(--border); }
+.page-section:last-child { border-bottom: none; }
+
+/* ══ SECTION HEADER ══ */
+.ps-header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 32px; }
+.ps-left {}
+.ps-tag { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--warm); margin-bottom: 6px; }
+.ps-h { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--forest); font-weight: 700; line-height: 1.15; }
+.ps-h em { font-style: italic; color: var(--amber); }
+.ps-meta { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 8px; }
+.ps-badge { font-family: 'DM Mono', monospace; font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase; padding: 3px 9px; border-radius: 100px; }
+.ps-badge.reorder { background: var(--reorder-bg); border: 1px solid rgba(192,57,43,0.2); color: var(--reorder); }
+.ps-badge.routine { background: rgba(76,175,80,0.08); border: 1px solid rgba(76,175,80,0.2); color: #2E7D32; }
+.ps-badge.capture { background: rgba(107,76,154,0.08); border: 1px solid rgba(107,76,154,0.2); color: var(--capture); }
+.ps-badge.upsell  { background: var(--upsell-bg); border: 1px solid rgba(200,131,26,0.2); color: var(--amber); }
+.ps-right { text-align: right; flex-shrink: 0; }
+.ps-impact { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--warm); margin-bottom: 4px; }
+.ps-impact-val { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--forest); font-weight: 700; }
+.ps-impact-val.high { color: #2E7D32; }
+.ps-impact-val.med  { color: var(--amber); }
+
+/* ══ MECHANIC ROWS ══ */
+.mechanic { display: grid; grid-template-columns: 1fr 1.1fr; gap: 28px; margin-bottom: 28px; align-items: start; }
+.mech-spec {}
+.mech-label { font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 6px; }
+.mech-label.reorder { color: var(--reorder); }
+.mech-label.routine { color: #2E7D32; }
+.mech-label.capture { color: var(--capture); }
+.mech-label.upsell  { color: var(--amber); }
+.mech-title { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 600; color: var(--forest); margin-bottom: 8px; letter-spacing: 0.02em; }
+.mech-desc { font-size: 0.88rem; color: var(--warm); line-height: 1.65; margin-bottom: 12px; }
+.mech-why { font-family: 'EB Garamond', serif; font-size: 0.88rem; font-style: italic; color: var(--charcoal); line-height: 1.6; padding: 10px 14px; background: var(--mist); border-left: 2px solid var(--amber); margin-bottom: 12px; }
+.mech-effort { display: flex; align-items: center; gap: 6px; font-family: 'DM Mono', monospace; font-size: 0.58rem; letter-spacing: 0.1em; color: var(--warm); }
+.effort-dot { width: 5px; height: 5px; border-radius: 50%; }
+.effort-1 { background: #4CAF50; }
+.effort-2 { background: var(--amber); }
+.effort-3 { background: var(--reorder); }
+
+/* ══ UI PREVIEWS ══ */
+.preview-wrap { background: var(--cream); border: 1px solid var(--border); border-radius: 3px; overflow: hidden; }
+.preview-label { background: var(--forest); padding: 7px 14px; font-family: 'DM Mono', monospace; font-size: 0.55rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(245,239,224,0.5); display: flex; align-items: center; justify-content: space-between; }
+.preview-label span { color: var(--amberl); }
+.preview-inner { padding: 20px; }
+
+/* ── UI: Hero Skin Selector ── */
+.ui-skin-selector { text-align: center; }
+.uss-q { font-family: 'Cormorant Garamond', serif; font-size: 0.78rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--warm); margin-bottom: 10px; }
+.uss-pills { display: flex; gap: 6px; justify-content: center; flex-wrap: wrap; }
+.uss-pill { font-family: 'Cormorant Garamond', serif; font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 7px 14px; border: 1px solid var(--border); border-radius: 100px; cursor: pointer; transition: all 0.25s; color: var(--forest); background: var(--offwhite); }
+.uss-pill:hover, .uss-pill.active { background: var(--forest); color: var(--cream); border-color: var(--forest); }
+.uss-note { font-family: 'EB Garamond', serif; font-style: italic; font-size: 0.78rem; color: var(--warm); margin-top: 8px; }
+
+/* ── UI: Routine Progress Bar ── */
+.ui-routine-bar { display: flex; align-items: center; gap: 0; }
+.rpb-step { flex: 1; text-align: center; padding: 10px 8px; background: var(--offwhite); border: 1px solid var(--border); position: relative; cursor: pointer; transition: all 0.25s; }
+.rpb-step:not(:first-child) { margin-left: -1px; }
+.rpb-step.done { background: var(--forest); border-color: var(--forest); }
+.rpb-step.active { background: rgba(200,131,26,0.1); border-color: rgba(200,131,26,0.35); }
+.rpb-num { font-family: 'DM Mono', monospace; font-size: 0.5rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--warm); margin-bottom: 3px; }
+.rpb-step.done .rpb-num { color: rgba(245,239,224,0.5); }
+.rpb-step.active .rpb-num { color: var(--amber); }
+.rpb-name { font-family: 'Cormorant Garamond', serif; font-size: 0.72rem; letter-spacing: 0.04em; color: var(--forest); font-weight: 500; }
+.rpb-step.done .rpb-name { color: var(--cream); }
+.rpb-step.active .rpb-name { color: var(--forest); font-weight: 600; }
+.rpb-check { font-size: 0.7rem; }
+
+/* ── UI: Reorder Nudge Card ── */
+.ui-reorder { background: var(--offwhite); border: 1px solid rgba(192,57,43,0.15); border-radius: 3px; padding: 16px; }
+.rn-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+.rn-label { font-family: 'DM Mono', monospace; font-size: 0.55rem; letter-spacing: 0.15em; text-transform: uppercase; color: var(--reorder); display: flex; align-items: center; gap: 5px; }
+.rn-pulse { width: 6px; height: 6px; border-radius: 50%; background: var(--reorder); animation: pulse 2s ease infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(0.8)} }
+.rn-days { font-family: 'DM Mono', monospace; font-size: 0.58rem; color: var(--warm); }
+.rn-product { font-family: 'Playfair Display', serif; font-size: 0.95rem; color: var(--forest); font-weight: 600; margin-bottom: 3px; }
+.rn-sub { font-size: 0.78rem; color: var(--warm); margin-bottom: 12px; }
+.rn-progress-bar { background: rgba(192,57,43,0.1); border-radius: 100px; height: 3px; margin-bottom: 12px; overflow: hidden; }
+.rn-fill { height: 100%; border-radius: 100px; background: var(--reorder); width: 78%; transition: width 1s; }
+.rn-btns { display: flex; gap: 6px; }
+.rn-btn-primary { background: var(--forest); color: var(--cream); border: none; padding: 8px 16px; font-family: 'Cormorant Garamond', serif; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; border-radius: 2px; cursor: pointer; flex: 1; transition: background 0.25s; }
+.rn-btn-primary:hover { background: var(--amber); }
+.rn-btn-ghost { background: transparent; color: var(--warm); border: 1px solid var(--border); padding: 8px 12px; font-family: 'Cormorant Garamond', serif; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; border-radius: 2px; cursor: pointer; transition: all 0.2s; }
+.rn-btn-ghost:hover { border-color: var(--warm); color: var(--charcoal); }
+
+/* ── UI: Phone Capture ── */
+.ui-phone-capture { }
+.pc-heading { font-family: 'Playfair Display', serif; font-size: 0.9rem; color: var(--forest); font-weight: 700; margin-bottom: 4px; }
+.pc-sub { font-size: 0.78rem; color: var(--warm); font-style: italic; margin-bottom: 12px; }
+.pc-form { display: flex; gap: 0; border: 1px solid var(--border); border-radius: 2px; overflow: hidden; }
+.pc-prefix { background: var(--mist); padding: 10px 12px; font-family: 'DM Mono', monospace; font-size: 0.72rem; color: var(--forest); border-right: 1px solid var(--border); flex-shrink: 0; }
+.pc-input { flex: 1; border: none; outline: none; padding: 10px 12px; font-family: 'EB Garamond', serif; font-size: 0.88rem; background: var(--offwhite); color: var(--charcoal); }
+.pc-btn { background: var(--forest); color: var(--cream); border: none; padding: 10px 16px; font-family: 'Cormorant Garamond', serif; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; cursor: pointer; transition: background 0.25s; flex-shrink: 0; }
+.pc-btn:hover { background: var(--amber); }
+.pc-trust { font-size: 0.72rem; color: var(--warm); margin-top: 6px; display: flex; align-items: center; gap: 4px; }
+
+/* ── UI: Completes Routine ── */
+.ui-complete-routine { }
+.cr-header { font-family: 'DM Mono', monospace; font-size: 0.55rem; letter-spacing: 0.16em; text-transform: uppercase; color: #2E7D32; margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+.cr-steps { display: flex; flex-direction: column; gap: 6px; }
+.cr-step { display: flex; align-items: center; gap: 10px; padding: 8px 10px; border-radius: 2px; background: var(--offwhite); border: 1px solid var(--border); }
+.cr-step.owned { opacity: 0.55; }
+.cr-step.missing { border-color: rgba(200,131,26,0.3); background: rgba(200,131,26,0.04); }
+.cr-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; }
+.cr-step.owned .cr-dot { background: #4CAF50; }
+.cr-step.missing .cr-dot { background: var(--amber); }
+.cr-step-name { font-family: 'Cormorant Garamond', serif; font-size: 0.8rem; color: var(--forest); flex: 1; }
+.cr-step.missing .cr-step-name { font-weight: 600; }
+.cr-step-action { font-family: 'Cormorant Garamond', serif; font-size: 0.68rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--amber); cursor: pointer; white-space: nowrap; }
+
+/* ── UI: Exit Intent ── */
+.ui-exit { background: var(--forest); border-radius: 3px; padding: 20px; text-align: center; }
+.ei-badge { display: inline-block; background: var(--amber); color: white; font-family: 'DM Mono', monospace; font-size: 0.5rem; letter-spacing: 0.12em; text-transform: uppercase; padding: 3px 10px; border-radius: 100px; margin-bottom: 10px; }
+.ei-h { font-family: 'Playfair Display', serif; font-size: 1.05rem; color: var(--cream); font-weight: 700; margin-bottom: 6px; font-style: italic; }
+.ei-sub { font-size: 0.78rem; color: rgba(245,239,224,0.6); margin-bottom: 14px; }
+.ei-form { display: flex; gap: 6px; }
+.ei-input { flex: 1; border: 1px solid rgba(245,239,224,0.15); background: rgba(245,239,224,0.07); color: var(--cream); padding: 9px 12px; font-family: 'EB Garamond', serif; font-size: 0.82rem; border-radius: 2px; outline: none; }
+.ei-input::placeholder { color: rgba(245,239,224,0.3); }
+.ei-btn { background: var(--amber); color: white; border: none; padding: 9px 16px; font-family: 'Cormorant Garamond', serif; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; border-radius: 2px; cursor: pointer; white-space: nowrap; transition: background 0.2s; }
+.ei-btn:hover { background: var(--amberl); }
+.ei-skip { font-size: 0.68rem; color: rgba(245,239,224,0.3); cursor: pointer; margin-top: 8px; }
+
+/* ── UI: WA Opt-In ── */
+.ui-wa-optin { display: flex; align-items: flex-start; gap: 10px; padding: 12px 14px; background: rgba(37,211,102,0.06); border: 1px solid rgba(37,211,102,0.18); border-radius: 2px; }
+.wa-check { width: 16px; height: 16px; border: 2px solid #25D366; border-radius: 2px; flex-shrink: 0; background: #25D366; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; color: white; margin-top: 1px; cursor: pointer; }
+.wa-text { font-size: 0.82rem; color: var(--charcoal); line-height: 1.5; }
+.wa-text strong { color: #1a8f4a; }
+.wa-icon { font-size: 1rem; flex-shrink: 0; margin-top: 1px; }
+
+/* ── UI: Post-Purchase Timeline ── */
+.ui-timeline { }
+.tl-item { display: flex; gap: 12px; padding: 10px 0; border-bottom: 1px solid var(--border); position: relative; }
+.tl-item:last-child { border-bottom: none; }
+.tl-day { font-family: 'DM Mono', monospace; font-size: 0.55rem; letter-spacing: 0.1em; text-transform: uppercase; color: var(--amber); width: 36px; flex-shrink: 0; margin-top: 2px; }
+.tl-dot { width: 7px; height: 7px; border-radius: 50%; margin-top: 5px; flex-shrink: 0; }
+.tl-content { flex: 1; }
+.tl-title { font-family: 'Cormorant Garamond', serif; font-size: 0.82rem; font-weight: 600; color: var(--forest); margin-bottom: 2px; }
+.tl-msg { font-size: 0.75rem; color: var(--warm); line-height: 1.45; }
+.tl-tag { display: inline-block; font-family: 'DM Mono', monospace; font-size: 0.5rem; letter-spacing: 0.08em; text-transform: uppercase; padding: 2px 6px; border-radius: 100px; margin-top: 4px; }
+
+/* ── UI: Subscription Toggle ── */
+.ui-sub-toggle { }
+.st-options { display: flex; gap: 2px; }
+.st-option { flex: 1; padding: 12px 10px; border: 1px solid var(--border); cursor: pointer; transition: all 0.25s; text-align: center; }
+.st-option.active { background: var(--forest); border-color: var(--forest); }
+.st-option:first-child { border-radius: 2px 0 0 2px; }
+.st-option:last-child  { border-radius: 0 2px 2px 0; }
+.sto-label { font-family: 'DM Mono', monospace; font-size: 0.55rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--warm); margin-bottom: 4px; }
+.sto-price { font-family: 'Playfair Display', serif; font-size: 1.1rem; color: var(--forest); font-weight: 700; }
+.st-option.active .sto-label { color: rgba(245,239,224,0.5); }
+.st-option.active .sto-price { color: var(--cream); }
+.sto-save { font-family: 'DM Mono', monospace; font-size: 0.5rem; letter-spacing: 0.08em; color: #4CAF50; margin-top: 3px; }
+.st-note { font-size: 0.75rem; color: var(--warm); margin-top: 8px; font-style: italic; }
+
+/* ── UI: Scroll CTA Bar ── */
+.ui-scroll-bar { background: var(--forest); border-radius: 2px; padding: 12px 16px; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+.scb-left { }
+.scb-eyebrow { font-family: 'DM Mono', monospace; font-size: 0.52rem; letter-spacing: 0.15em; text-transform: uppercase; color: rgba(245,239,224,0.4); margin-bottom: 2px; }
+.scb-text { font-family: 'Cormorant Garamond', serif; font-size: 0.88rem; color: var(--cream); font-weight: 500; }
+.scb-text strong { color: var(--amberl); }
+.scb-btn { background: var(--amber); color: white; border: none; padding: 8px 16px; font-family: 'Cormorant Garamond', serif; font-size: 0.72rem; letter-spacing: 0.1em; text-transform: uppercase; border-radius: 2px; cursor: pointer; white-space: nowrap; transition: background 0.2s; flex-shrink: 0; }
+.scb-btn:hover { background: var(--amberl); }
+.scb-dismiss { color: rgba(245,239,224,0.25); font-size: 0.9rem; cursor: pointer; flex-shrink: 0; }
+
+/* ── UI: Ingredient Peek ── */
+.ui-ingredient-peek { }
+.ip-row { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid var(--border); cursor: pointer; }
+.ip-row:last-child { border-bottom: none; }
+.ip-name { font-family: 'Cormorant Garamond', serif; font-size: 0.82rem; font-weight: 500; color: var(--forest); flex: 0 0 100px; }
+.ip-bar { flex: 1; height: 2px; background: var(--border); border-radius: 100px; overflow: hidden; }
+.ip-fill { height: 100%; border-radius: 100px; background: var(--amber); }
+.ip-benefit { font-size: 0.72rem; color: var(--warm); font-style: italic; }
+
+/* ══ JOURNEY MAP ══ */
+.journey-map { padding: 48px 56px; background: var(--cream); border-bottom: 1px solid var(--border); }
+.jm-title { font-family: 'DM Mono', monospace; font-size: 0.6rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--warm); margin-bottom: 20px; }
+.jm-track { display: flex; gap: 0; overflow-x: auto; padding-bottom: 8px; }
+.jm-stage { flex: 1; min-width: 130px; border: 1px solid var(--border); padding: 16px 14px; position: relative; cursor: pointer; transition: all 0.25s; background: var(--offwhite); }
+.jm-stage:not(:first-child) { margin-left: -1px; }
+.jm-stage:hover { z-index: 2; transform: translateY(-3px); box-shadow: 0 8px 24px rgba(28,58,46,0.12); }
+.jm-stage.active { background: var(--forest); z-index: 2; }
+.js-name { font-family: 'Cormorant Garamond', serif; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; color: var(--forest); margin-bottom: 6px; }
+.jm-stage.active .js-name { color: var(--cream); }
+.js-signals { display: flex; gap: 3px; margin-bottom: 8px; flex-wrap: wrap; }
+.js-dot { width: 6px; height: 6px; border-radius: 50%; }
+.js-count { font-family: 'DM Mono', monospace; font-size: 0.52rem; color: var(--warm); }
+.jm-stage.active .js-count { color: rgba(245,239,224,0.45); }
+
+/* ══ DIVIDER ══ */
+.section-divider { border: none; border-top: 1px solid var(--border); margin: 40px 0; }
+
+/* ══ TABLE ══ */
+.data-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-top: 12px; }
+.data-table thead tr { background: var(--forest); }
+.data-table thead th { font-family: 'DM Mono', monospace; font-size: 0.55rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--amberl); padding: 10px 14px; text-align: left; font-weight: 400; }
+.data-table tbody tr { border-bottom: 1px solid var(--border); }
+.data-table tbody tr:nth-child(even) { background: var(--cream); }
+.data-table td { padding: 10px 14px; color: var(--charcoal); vertical-align: top; font-size: 0.82rem; }
+.data-table td:first-child { font-family: 'Cormorant Garamond', serif; font-weight: 600; color: var(--forest); }
+code { font-family: 'DM Mono', monospace; font-size: 0.7rem; background: rgba(28,58,46,0.06); padding: 2px 5px; border-radius: 2px; color: var(--forest); }
+
+/* ══ CALLOUT ══ */
+.callout { background: var(--forest); color: rgba(245,239,224,0.82); border-radius: 2px; padding: 18px 22px; margin-top: 20px; font-size: 0.88rem; line-height: 1.7; }
+.callout strong { color: var(--amberl); }
+
+/* ══ GRID ══ */
+.two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
+.stat-card { background: var(--cream); border: 1px solid var(--border); border-radius: 2px; padding: 18px 20px; }
+.sc-label { font-family: 'DM Mono', monospace; font-size: 0.55rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--warm); margin-bottom: 4px; }
+.sc-val { font-family: 'Playfair Display', serif; font-size: 1.6rem; color: var(--forest); font-weight: 700; line-height: 1.1; }
+.sc-val.green { color: #2E7D32; }
+.sc-val.amber { color: var(--amber); }
+.sc-sub { font-size: 0.75rem; color: var(--warm); margin-top: 3px; font-style: italic; }
+
+@media (max-width: 1000px) {
+  .layout { grid-template-columns: 1fr; }
+  aside { position: static; height: auto; }
+  .mechanic, .two-col { grid-template-columns: 1fr; }
+  .three-col { grid-template-columns: 1fr 1fr; }
+  .page-section, .journey-map, .top-bar { padding-left: 24px; padding-right: 24px; }
+}
+</style>
+</head>
+<body>
+
+<div class="layout">
+
+<!-- ═══ SIDEBAR ═══ -->
+<aside>
+  <div class="sb-top">
+    <div class="sb-logo">Bighi Brothers</div>
+    <div class="sb-title">Growth Optimization Map · v1.0</div>
+  </div>
+
+  <div class="sb-legend">
+    <div class="legend-label">Mechanic Types</div>
+    <div class="legend-item"><div class="legend-dot dot-reorder"></div> Reorder Nudges</div>
+    <div class="legend-item"><div class="legend-dot dot-routine"></div> Routine System</div>
+    <div class="legend-item"><div class="legend-dot dot-capture"></div> Data Capture</div>
+    <div class="legend-item" style="opacity:0.6"><div class="legend-dot" style="background:var(--amber)"></div> Upsell / Retention</div>
+  </div>
+
+  <div class="sb-nav">
+    <div class="sn-section">
+      <div class="sn-label">Customer Journey</div>
+      <a class="sn-link active" href="#s1">
+        01 · Homepage
+        <div class="sn-dots">
+          <div class="sn-dot dot-capture" style="background:#9C6DD8"></div>
+          <div class="sn-dot" style="background:#4CAF50"></div>
+        </div>
+      </a>
+      <a class="sn-link" href="#s2">
+        02 · Product Page
+        <div class="sn-dots">
+          <div class="sn-dot dot-reorder" style="background:var(--reorder)"></div>
+          <div class="sn-dot" style="background:#4CAF50"></div>
+          <div class="sn-dot" style="background:var(--amber)"></div>
+        </div>
+      </a>
+      <a class="sn-link" href="#s3">
+        03 · Checkout
+        <div class="sn-dots">
+          <div class="sn-dot" style="background:#9C6DD8"></div>
+          <div class="sn-dot" style="background:var(--reorder)"></div>
+        </div>
+      </a>
+      <a class="sn-link" href="#s4">
+        04 · Post-Purchase
+        <div class="sn-dots">
+          <div class="sn-dot" style="background:var(--reorder)"></div>
+          <div class="sn-dot" style="background:#4CAF50"></div>
+        </div>
+      </a>
+      <a class="sn-link" href="#s5">
+        05 · Re-engagement
+        <div class="sn-dots">
+          <div class="sn-dot" style="background:var(--reorder)"></div>
+          <div class="sn-dot" style="background:var(--amber)"></div>
+        </div>
+      </a>
+    </div>
+    <div class="sn-section">
+      <div class="sn-label">Systems</div>
+      <a class="sn-link" href="#s6">06 · Data Capture OS</a>
+      <a class="sn-link" href="#s7">07 · Prioritization</a>
+    </div>
+  </div>
+
+  <div class="sb-score">
+    <div class="score-label">Current Site Score</div>
+    <div class="score-bars">
+      <div class="score-bar">
+        <div class="sb-name">Reorder</div>
+        <div class="sb-track"><div class="sb-fill" style="width:5%;background:var(--reorder)"></div></div>
+        <div class="sb-val">5%</div>
+      </div>
+      <div class="score-bar">
+        <div class="sb-name">Routine</div>
+        <div class="sb-track"><div class="sb-fill" style="width:0%;background:#4CAF50"></div></div>
+        <div class="sb-val">0%</div>
+      </div>
+      <div class="score-bar">
+        <div class="sb-name">Capture</div>
+        <div class="sb-track"><div class="sb-fill" style="width:10%;background:#9C6DD8"></div></div>
+        <div class="sb-val">10%</div>
+      </div>
+      <div class="score-bar">
+        <div class="sb-name">Upsell</div>
+        <div class="sb-track"><div class="sb-fill" style="width:20%;background:var(--amber)"></div></div>
+        <div class="sb-val">20%</div>
+      </div>
+    </div>
+  </div>
+</aside>
+
+<!-- ═══ MAIN ═══ -->
+<main>
+
+  <div class="top-bar">
+    <div class="tb-left">
+      <span class="tb-title">Growth Optimization Map</span>
+      <span class="tb-sep">·</span>
+      <span class="tb-sub">23 mechanics · 5 stages · 3 systems</span>
+    </div>
+    <div class="tb-pills">
+      <div class="tb-pill all">All</div>
+      <div class="tb-pill reorder">Reorder</div>
+      <div class="tb-pill routine">Routine</div>
+      <div class="tb-pill capture">Capture</div>
+      <div class="tb-pill upsell">Upsell</div>
+    </div>
+  </div>
+
+  <!-- ══ JOURNEY MAP ══ -->
+  <div class="journey-map">
+    <div class="jm-title">Full Customer Journey · Click a stage to jump</div>
+    <div class="jm-track">
+      <div class="jm-stage active" onclick="location.href='#s1'">
+        <div class="js-name">Homepage</div>
+        <div class="js-signals">
+          <div class="js-dot" style="background:#9C6DD8" title="Data Capture"></div>
+          <div class="js-dot" style="background:#4CAF50" title="Routine"></div>
+        </div>
+        <div class="js-count">3 mechanics</div>
+      </div>
+      <div class="jm-stage" onclick="location.href='#s2'">
+        <div class="js-name">Product Page</div>
+        <div class="js-signals">
+          <div class="js-dot" style="background:var(--reorder)"></div>
+          <div class="js-dot" style="background:#4CAF50"></div>
+          <div class="js-dot" style="background:var(--amber)"></div>
+          <div class="js-dot" style="background:#9C6DD8"></div>
+        </div>
+        <div class="js-count">7 mechanics</div>
+      </div>
+      <div class="jm-stage" onclick="location.href='#s3'">
+        <div class="js-name">Checkout</div>
+        <div class="js-signals">
+          <div class="js-dot" style="background:#9C6DD8"></div>
+          <div class="js-dot" style="background:var(--reorder)"></div>
+          <div class="js-dot" style="background:var(--amber)"></div>
+        </div>
+        <div class="js-count">4 mechanics</div>
+      </div>
+      <div class="jm-stage" onclick="location.href='#s4'">
+        <div class="js-name">Post-Purchase</div>
+        <div class="js-signals">
+          <div class="js-dot" style="background:var(--reorder)"></div>
+          <div class="js-dot" style="background:#4CAF50"></div>
+          <div class="js-dot" style="background:var(--amber)"></div>
+        </div>
+        <div class="js-count">6 mechanics</div>
+      </div>
+      <div class="jm-stage" onclick="location.href='#s5'">
+        <div class="js-name">Re-engagement</div>
+        <div class="js-signals">
+          <div class="js-dot" style="background:var(--reorder)"></div>
+          <div class="js-dot" style="background:var(--amber)"></div>
+        </div>
+        <div class="js-count">3 mechanics</div>
+      </div>
+    </div>
+
+    <div class="three-col" style="margin-top:20px">
+      <div class="stat-card">
+        <div class="sc-label">Current Repeat Rate</div>
+        <div class="sc-val amber">~12%</div>
+        <div class="sc-sub">Industry avg for D2C skincare is 35–45%</div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-label">Refill Opportunity (monthly)</div>
+        <div class="sc-val green">₹60,000+</div>
+        <div class="sc-sub">1,200 customers × ₹50 × 1 refill/mo at 10% capture</div>
+      </div>
+      <div class="stat-card">
+        <div class="sc-label">Data Captured Today</div>
+        <div class="sc-val amber">~0</div>
+        <div class="sc-sub">No phone, no skin type, no purchase history stored</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════ -->
+  <!-- S1: HOMEPAGE                       -->
+  <!-- ══════════════════════════════════ -->
+  <div class="page-section" id="s1">
+    <div class="ps-header">
+      <div class="ps-left">
+        <div class="ps-tag">Stage 01 · First Impression</div>
+        <div class="ps-h">Homepage — <em>Acquire & Orient</em></div>
+        <div class="ps-meta">
+          <span class="ps-badge capture">Data Capture</span>
+          <span class="ps-badge routine">Routine Entry</span>
+          <span class="ps-badge upsell">Conversion</span>
+        </div>
+      </div>
+      <div class="ps-right">
+        <div class="ps-impact">Conversion Lift</div>
+        <div class="ps-impact-val high">+40–60%</div>
+      </div>
+    </div>
+
+    <!-- Mechanic 1 -->
+    <div class="mechanic">
+      <div class="mech-spec">
+        <div class="mech-label capture">Data Capture · M01</div>
+        <div class="mech-title">Hero Skin Concern Selector</div>
+        <div class="mech-desc">3 pill-buttons directly in the hero sub-headline. Selecting a concern instantly filters product recommendations below — and silently captures skin type as a first-party data point tied to session.</div>
+        <div class="mech-why">"This is not a filter. It's the start of a conversation. The user feels understood before they've even scrolled."</div>
+        <div class="mech-effort"><div class="effort-dot effort-1"></div> 1-day build · Vanilla JS · No backend</div>
+      </div>
+      <div class="preview-wrap">
+        <div class="preview-label">Hero Section — Below Sub-headline <span>Live Preview</span></div>
+        <div class="preview-inner">
+          <div class="ui-skin-selector">
+            <div class="uss-q">What's your main skin concern?</div>
+            <div class="uss-pills">
+              <div class="uss-pill active" onclick="togglePill(this)">Acne & Breakouts</div>
+              <div class="uss-pill" onclick="togglePill(this)">Dullness & Pigmentation</div>
+              <div class="uss-pill" onclick="togglePill(this)">Dryness</div>
+              <div class="uss-pill" onclick="togglePill(this)">Sensitivity</div>
+            </div>
+            <div class="uss-note">Showing 3 products for acne-prone skin →</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mechanic 2 -->
+    <div class="mechanic">
+      <div class="mech-spec">
+        <div class="mech-label routine">Routine Entry · M02</div>
+        <div class="mech-title">Persistent Routine Progress Bar (Nav)</div>
+        <div class="mech-desc">A thin progress bar in the nav shows "Your ritual: 0 of 3 steps." As the user adds products, it fills. It's a commitment device — they want to complete it once they start.</div>
+        <div class="mech-why">"Incomplete routines create re-engagement. Completed routines create subscription candidates."</div>
+        <div class="mech-effort"><div class="effort-dot effort-1"></div> 2-day build · localStorage state</div>
+      </div>
+      <div class="preview-wrap">
+        <div class="preview-label">Nav Bar — Routine Tracker <span>Live Preview</span></div>
+        <div class="preview-inner">
+          <div class="ui-routine-bar">
+            <div class="rpb-step done">
+              <div class="rpb-num">Step 01</div>
+              <div class="rpb-name">Cleanse <span class="rpb-check">✓</span></div>
+            </div>
+            <div class="rpb-step active">
+              <div class="rpb-num">Step 02</div>
+              <div class="rpb-name">Treat</div>
+            </div>
+            <div class="rpb-step">
+              <div class="rpb-num">Step 03</div>
+              <div class="rpb-name">Restore</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mechanic 3 -->
+    <div class="mechanic">
+      <div class="mech-spec">
+        <div class="mech-label capture">Data Capture · M03</div>
+        <div class="mech-title">60% Scroll — Sticky Bottom CTA Bar</div>
+        <div class="mech-desc">When a user has scrolled 60% of the homepage (deep interest signal), a forest-green bar slides up from the bottom. Not a popup — a contextual offer. Captures phone number for WhatsApp.</div>
+        <div class="mech-why">"The 60% scroll threshold filters for high-intent visitors. You're not interrupting browsing — you're catching the moment of maximum engagement."</div>
+        <div class="mech-effort"><div class="effort-dot effort-1"></div> 1-day build · 10 lines of JS</div>
+      </div>
+      <div class="preview-wrap">
+        <div class="preview-label">Sticky Bottom — After 60% Scroll <span>Live Preview</span></div>
+        <div class="preview-inner">
+          <div class="ui-scroll-bar">
+            <div class="scb-left">
+              <div class="scb-eyebrow">1,200 rituals active</div>
+              <div class="scb-text">Get your <strong>free skin ritual guide</strong> on WhatsApp</div>
+            </div>
+            <button class="scb-btn">Get It Free →</button>
+            <div class="scb-dismiss">✕</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════ -->
+  <!-- S2: PRODUCT PAGE                   -->
+  <!-- ══════════════════════════════════ -->
+  <div class="page-section" id="s2">
+    <div class="ps-header">
+      <div class="ps-left">
+        <div class="ps-tag">Stage 02 · Consideration</div>
+        <div class="ps-h">Product Page — <em>Convert & Anchor</em></div>
+        <div class="ps-meta">
+          <span class="ps-badge reorder">Reorder Setup</span>
+          <span class="ps-badge routine">Routine Context</span>
+          <span class="ps-badge upsell">Subscription</span>
+          <span class="ps-badge capture">WA Opt-in</span>
+        </div>
+      </div>
+      <div class="ps-right">
+        <div class="ps-impact">AOV Lift</div>
+        <div class="ps-impact-val high">+35%</div>
+      </div>
+    </div>
+
+    <!-- Mechanic 4 -->
+    <div class="mechanic">
+      <div class="mech-spec">
+        <div class="mech-label upsell">Subscription · M04</div>
+        <div class="mech-title">One-Time vs Subscribe Price Toggle</div>
+        <div class="mech-desc">Replace the single price with a two-option toggle: "One-time ₹50" vs "Subscribe ₹45/mo." Subscribe is pre-selected. Switching to one-time shows the price going up — loss aversion. First subscription price is the same as one-time to reduce friction.</div>
+        <div class="mech-why">"Pre-selecting subscribe doesn't force anything. It just makes one-time feel like the expensive choice."</div>
+        <div class="mech-effort"><div class="effort-dot effort-2"></div> 3-day build · Razorpay recurring</div>
+      </div>
+      <div class="preview-wrap">
+        <div class="preview-label">Product Page — Price Section <span>Live Preview</span></div>
+        <div class="preview-inner">
+          <div class="ui-sub-toggle">
+            <div class="st-options">
+              <div class="st-option" onclick="toggleSub(this)">
+                <div class="sto-label">One-Time</div>
+                <div class="sto-price">₹50</div>
+                <div class="sto-save" style="visibility:hidden">—</div>
+              </div>
+              <div class="st-option active" onclick="toggleSub(this)">
+                <div class="sto-label">Subscribe · Monthly</div>
+                <div class="sto-price">₹45</div>
+                <div class="sto-save">Save 10% · Cancel anytime</div>
+              </div>
+            </div>
+            <div class="st-note">Subscriptions ship every 30 days. We'll remind you 3 days before.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mechanic 5 -->
+    <div class="mechanic">
+      <div class="mech-spec">
+        <div class="mech-label routine">Routine Context · M05</div>
+        <div class="mech-title">"Completes Your Routine" Module</div>
+        <div class="mech-desc">Below the product description: a 3-step routine visualizer showing which steps the user already owns (✓ green) and which they're missing (highlighted). Missing steps have "Add" buttons. This is the highest-converting upsell because it doesn't feel like an upsell.</div>
+        <div class="mech-why">"Nobody wants more products. But everyone wants a complete routine. Frame completion, not addition."</div>
+        <div class="mech-effort"><div class="effort-dot effort-2"></div> 2-day build · localStorage routine state</div>
+      </div>
+      <div class="preview-wrap">
+        <div class="preview-label">Product Page — Below Description <span>Live Preview</span></div>
+        <div class="preview-inner">
+          <div class="ui-complete-routine">
+            <div class="cr-header">✦ Complete Your Morning Ritual</div>
+            <div class="cr-steps">
+              <div class="cr-step owned">
+                <div class="cr-dot"></div>
+                <div class="cr-step-name">Marigold Mountain Soap — Cleanse</div>
+                <span style="font-size:0.7rem;color:#4CAF50">In your ritual ✓</span>
+              </div>
+              <div class="cr-step missing">
+                <div class="cr-dot"></div>
+                <div class="cr-step-name">Café Vanilla Scrub — Treat & Exfoliate</div>
+                <div class="cr-step-action">+ Add ₹50</div>
+              </div>
+              <div class="cr-step missing">
+                <div class="cr-dot"></div>
+                <div class="cr-step-name">Shea Repair Cream — Night Restore</div>
+                <div class="cr-step-action">+ Add ₹80</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mechanic 6 -->
+    <div class="mechanic">
+      <div class="mech-spec">
+        <div class="mech-label reorder">Reorder Setup · M06</div>
+        <div class="mech-title">Duration Badge + WA Refill Opt-In</div>
+        <div class="mech-desc">A "Lasts ~30 days" badge sits above the CTA. Below the Add-to-Cart button, a pre-checked WhatsApp opt-in: "Remind me when this is running out." This single checkbox is the refill system entry point — and it has near-100% opt-in when framed as a reminder, not marketing.</div>
+        <div class="mech-why">"The user wants to be reminded. Frame it as a service, not a sell."</div>
+        <div class="mech-effort"><div class="effort-dot effort-1"></div> 1-day build · WhatsApp API template</div>
+      </div>
+      <div class="preview-wrap">
+        <div class="preview-label">Product Page — Below Add to Cart <span>Live Preview</span></div>
+        <div class="preview-inner">
+          <div class="ui-wa-optin">
+            <div class="wa-icon">💬</div>
+            <div class="wa-check">✓</div>
+            <div class="wa-text">
+              <strong>Remind me on WhatsApp</strong> when this soap is running out (~Day 22). No spam — just one message.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mechanic 7 -->
+    <div class="mechanic">
+      <div class="mech-spec">
+        <div class="mech-label upsell">Ingredient Trust · M07</div>
+        <div class="mech-title">Expandable Ingredient Strip</div>
+        <div class="mech-desc">Horizontal row of ingredient names. Each expands on tap to show a one-line benefit. No new page, no modal — just inline reveal. This removes the "what's actually in this?" objection that kills conversions for natural products.</div>
+        <div class="mech-why">"The customer who reads ingredients is your best customer. They buy on trust. Earn it on the page."</div>
+        <div class="mech-effort"><div class="effort-dot effort-1"></div> 1-day build · Pure CSS accordion</div>
+      </div>
+      <div class="preview-wrap">
+        <div class="preview-label">Product Page — Ingredients Tab <span>Live Preview</span></div>
+        <div class="preview-inner">
+          <div class="ui-ingredient-peek">
+            <div class="ip-row">
+              <div class="ip-name">Turmeric</div>
+              <div class="ip-bar"><div class="ip-fill" style="width:90%"></div></div>
+              <div class="ip-benefit">Brightens · fades pigmentation</div>
+            </div>
+            <div class="ip-row">
+              <div class="ip-name">Neem</div>
+              <div class="ip-bar"><div class="ip-fill" style="width:75%"></div></div>
+              <div class="ip-benefit">Antibacterial · clears acne</div>
+            </div>
+            <div class="ip-row">
+              <div class="ip-name">Calendula</div>
+              <div class="ip-bar"><div class="ip-fill" style="width:65%"></div></div>
+              <div class="ip-benefit">Anti-inflammatory · soothes</div>
+            </div>
+            <div class="ip-row">
+              <div class="ip-name">Coconut Oil</div>
+              <div class="ip-bar"><div class="ip-fill" style="width:85%"></div></div>
+              <div class="ip-benefit">Deep cleanse · rich lather</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════ -->
+  <!-- S3: CHECKOUT                       -->
+  <!-- ══════════════════════════════════ -->
+  <div class="page-section" id="s3">
+    <div class="ps-header">
+      <div class="ps-left">
+        <div class="ps-tag">Stage 03 · Transaction</div>
+        <div class="ps-h">Checkout — <em>Capture Identity & Expand Order</em></div>
+        <div class="ps-meta">
+          <span class="ps-badge capture">Identity Capture</span>
+          <span class="ps-badge reorder">Refill Consent</span>
+          <span class="ps-badge upsell">AOV Expansion</span>
+        </div>
+      </div>
+      <div class="ps-right">
+        <div class="ps-impact">Repeat Rate Unlock</div>
+        <div class="ps-impact-val high">×3</div>
+      </div>
+    </div>
+
+    <!-- Mechanic 8 -->
+    <div class="mechanic">
+      <div class="mech-spec">
+        <div class="mech-label capture">Identity Capture · M08</div>
+        <div class="mech-title">Phone Number as First Field</div>
+        <div class="mech-desc">Move phone number to the very top of the checkout form — before name, before address. Label it: "Your WhatsApp number (for order updates)." This is the primary key for every retention mechanic. Without it, the entire post-purchase system doesn't fire.</div>
+        <div class="mech-why">"The phone number is worth more than the order value. One captured number = potential lifetime customer. One skipped = a one-time transaction."</div>
+        <div class="mech-effort"><div class="effort-dot effort-1"></div> Form field reorder — 1 hour</div>
+      </div>
+      <div class="preview-wrap">
+        <div class="preview-label">Checkout Form — Step 1 <span>Live Preview</span></div>
+        <div class="preview-inner">
+          <div class="ui-phone-capture">
+            <div class="pc-heading">Where should we send your order updates?</div>
+            <div class="pc-sub">We'll also send your free skin ritual guide.</div>
+            <div class="pc-form">
+              <div class="pc-prefix">+91</div>
+              <input class="pc-input" type="tel" placeholder="98765 43210">
+              <button class="pc-btn">Continue →</button>
+            </div>
+            <div class="pc-trust">🔒 Only used for order updates + refill reminders. Never shared.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mechanic 9 -->
+    <div class="mechanic">
+      <div class="mech-spec">
+        <div class="mech-label upsell">AOV Expansion · M09</div>
+        <div class="mech-title">Routine Completion Upsell in Cart</div>
+        <div class="mech-desc">If the cart has only 1 item, show a banner: "You're 1 product away from your complete routine." Display the missing product with an "Add — ₹50" button. This increases AOV by 35–45% based on similar D2C data. The framing is completion, never "you should also buy."</div>
+        <div class="mech-why">"At checkout, the user is already committed to spending. Adding ₹50 to a ₹50 order feels small. The routine frame makes it feel necessary."</div>
+        <div class="mech-effort"><div class="effort-dot effort-2"></div> 3-day build · cart logic + routine map</div>
+      </div>
+      <div class="preview-wrap">
+        <div class="preview-label">Cart / Checkout — Above CTA <span>Live Preview</span></div>
+        <div class="preview-inner">
+          <div style="background:rgba(28,58,46,0.05);border:1px solid rgba(28,58,46,0.15);border-radius:2px;padding:14px 16px;">
+            <div style="font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.14em;text-transform:uppercase;color:#2E7D32;margin-bottom:8px;">✦ Complete Your Morning Ritual</div>
+            <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;">
+              <div>
+                <div style="font-family:'Cormorant Garamond',serif;font-size:0.9rem;font-weight:600;color:var(--forest);">Café Vanilla Scrub</div>
+                <div style="font-size:0.75rem;color:var(--warm);margin-top:2px;">Step 02 · Treat & Exfoliate · 3× week</div>
+              </div>
+              <button style="background:var(--forest);color:var(--cream);border:none;padding:8px 14px;font-family:'Cormorant Garamond',serif;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;border-radius:2px;cursor:pointer;white-space:nowrap;">+ Add ₹50</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mechanic 10 -->
+    <div class="mechanic">
+      <div class="mech-spec">
+        <div class="mech-label reorder">Refill Consent · M10</div>
+        <div class="mech-title">Pre-checked Refill Reminder on Order Confirm</div>
+        <div class="mech-desc">On the order confirmation page, show one pre-checked checkbox: "Send me a WhatsApp reminder when my products are running out." Opt-out, not opt-in. ~85% of users leave it checked because it's genuinely useful. This is the legal consent for your refill automation.</div>
+        <div class="mech-why">"Pre-checked for a service users actually want is not dark UX — it's good product design. The refill reminder is a feature, not marketing."</div>
+        <div class="mech-effort"><div class="effort-dot effort-1"></div> 1-day build · consent flag in DB</div>
+      </div>
+      <div class="preview-wrap">
+        <div class="preview-label">Order Confirmation Page <span>Live Preview</span></div>
+        <div class="preview-inner">
+          <div style="text-align:center;margin-bottom:14px;">
+            <div style="font-size:1.8rem;margin-bottom:6px;">🌿</div>
+            <div style="font-family:'Playfair Display',serif;font-size:1.1rem;color:var(--forest);font-weight:700;margin-bottom:3px;">Order confirmed, #BB-1244</div>
+            <div style="font-size:0.8rem;color:var(--warm);">Arriving in 3–5 days to your address.</div>
+          </div>
+          <div class="ui-wa-optin" style="margin-top:12px">
+            <div class="wa-icon">💬</div>
+            <div class="wa-check">✓</div>
+            <div class="wa-text">
+              <strong>Keep my ritual on track</strong> — send me a WhatsApp reminder when my products are ~7 days from finishing.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════ -->
+  <!-- S4: POST-PURCHASE                  -->
+  <!-- ══════════════════════════════════ -->
+  <div class="page-section" id="s4">
+    <div class="ps-header">
+      <div class="ps-left">
+        <div class="ps-tag">Stage 04 · Retention — Most Critical</div>
+        <div class="ps-h">Post-Purchase — <em>Build the Habit</em></div>
+        <div class="ps-meta">
+          <span class="ps-badge reorder">Refill Loop</span>
+          <span class="ps-badge routine">Habit Formation</span>
+          <span class="ps-badge upsell">Referral</span>
+        </div>
+      </div>
+      <div class="ps-right">
+        <div class="ps-impact">Repeat Rate Impact</div>
+        <div class="ps-impact-val high">12% → 40%</div>
+      </div>
+    </div>
+
+    <!-- Mechanic 11 -->
+    <div class="mechanic">
+      <div class="mech-spec">
+        <div class="mech-label reorder">Refill Loop · M11</div>
+        <div class="mech-title">45-Day WhatsApp Sequence (6 messages)</div>
+        <div class="mech-desc">The most important mechanic in this entire document. 6 automated messages over 45 days. Automated via Make.com. Each message is short, useful, and non-promotional. The refill nudge on Day 22 converts at 35–55% for engaged customers.</div>
+        <div class="mech-why">"The sequence isn't marketing — it's a skincare coach. Each message makes the customer better at using the product. Better usage = visible results = reorder."</div>
+        <div class="mech-effort"><div class="effort-dot effort-2"></div> 5-day build · Make.com + Interakt</div>
+      </div>
+      <div class="preview-wrap">
+        <div class="preview-label">WhatsApp Sequence — 45 Days <span>Automation Blueprint</span></div>
+        <div class="preview-inner">
+          <div class="ui-timeline">
+            <div class="tl-item">
+              <div class="tl-day">Day 0</div>
+              <div class="tl-dot" style="background:#4CAF50"></div>
+              <div class="tl-content">
+                <div class="tl-title">Order confirmed + ritual guide</div>
+                <div class="tl-msg">"Your order is confirmed 🌿 Your skin ritual guide is attached — start with Step 1 tomorrow morning."</div>
+                <span class="tl-tag" style="background:rgba(76,175,80,0.1);color:#2E7D32;border:1px solid rgba(76,175,80,0.2)">Onboard</span>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-day">Day 3</div>
+              <div class="tl-dot" style="background:#9C6DD8"></div>
+              <div class="tl-content">
+                <div class="tl-title">Delivery check-in</div>
+                <div class="tl-msg">"Got your order? Reply YES ✓ or tell us if anything's wrong."</div>
+                <span class="tl-tag" style="background:rgba(107,76,154,0.08);color:#6B4C9A;border:1px solid rgba(107,76,154,0.2)">Data</span>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-day">Day 7</div>
+              <div class="tl-dot" style="background:#4CAF50"></div>
+              <div class="tl-content">
+                <div class="tl-title">Week 1 skin tip</div>
+                <div class="tl-msg">"Week 1 tip: Let your soap sit on a dry dish between uses — the glycerin layer keeps it lasting 30+ days."</div>
+                <span class="tl-tag" style="background:rgba(76,175,80,0.1);color:#2E7D32;border:1px solid rgba(76,175,80,0.2)">Education</span>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-day">Day 14</div>
+              <div class="tl-dot" style="background:#9C6DD8"></div>
+              <div class="tl-content">
+                <div class="tl-title">2-week check-in (engagement signal)</div>
+                <div class="tl-msg">"How's your skin feeling? Reply 1 (better) / 2 (same) / 3 (need help)"</div>
+                <span class="tl-tag" style="background:rgba(107,76,154,0.08);color:#6B4C9A;border:1px solid rgba(107,76,154,0.2)">Signal</span>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-day">Day 22</div>
+              <div class="tl-dot" style="background:var(--reorder)"></div>
+              <div class="tl-content">
+                <div class="tl-title">🔴 Refill nudge — highest conversion</div>
+                <div class="tl-msg">"Your Marigold soap is ~1 week from finishing. Reorder now? Reply 1 to reorder (₹50, same address)"</div>
+                <span class="tl-tag" style="background:rgba(192,57,43,0.08);color:var(--reorder);border:1px solid rgba(192,57,43,0.2)">Refill</span>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-day">Day 30</div>
+              <div class="tl-dot" style="background:var(--amber)"></div>
+              <div class="tl-content">
+                <div class="tl-title">Month 1 review ask + referral</div>
+                <div class="tl-msg">"You've completed Month 1 🌿 How's your skin? Leave a review → and share your routine link for ₹20 off for a friend."</div>
+                <span class="tl-tag" style="background:rgba(200,131,26,0.08);color:var(--amber);border:1px solid rgba(200,131,26,0.2)">Referral</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mechanic 12 -->
+    <div class="mechanic">
+      <div class="mech-spec">
+        <div class="mech-label reorder">Reorder UX · M12</div>
+        <div class="mech-title">1-Tap WhatsApp Reorder</div>
+        <div class="mech-desc">The Day 22 message contains a pre-filled payment link. Customer replies "1" — that's the entire checkout. No login, no cart, no form. Order is created automatically, charged to saved payment method, shipped to saved address. Friction is the enemy of refill.</div>
+        <div class="mech-why">"Every additional step in reorder kills conversion by ~15%. A reply of '1' is theoretically frictionless. That's the bar."</div>
+        <div class="mech-effort"><div class="effort-dot effort-3"></div> 7-day build · Make.com webhook + Razorpay API</div>
+      </div>
+      <div class="preview-wrap">
+        <div class="preview-label">WhatsApp — Day 22 Reorder Flow <span>Message Preview</span></div>
+        <div class="preview-inner">
+          <div style="background:#ECE5DD;border-radius:6px;padding:16px;max-width:320px;margin:0 auto;">
+            <div style="font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;color:#25D366;margin-bottom:10px;">💬 Bighi Brothers</div>
+            <div class="ui-reorder">
+              <div class="rn-top">
+                <div class="rn-label"><div class="rn-pulse"></div> Running Low</div>
+                <div class="rn-days">~8 days left</div>
+              </div>
+              <div class="rn-product">Marigold Mountain Soap</div>
+              <div class="rn-sub">90gm · Step 1 of your morning ritual</div>
+              <div class="rn-progress-bar"><div class="rn-fill"></div></div>
+              <div class="rn-btns">
+                <button class="rn-btn-primary">Reply 1 to Reorder — ₹50</button>
+                <button class="rn-btn-ghost">Skip</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mechanic 13 -->
+    <div class="mechanic">
+      <div class="mech-spec">
+        <div class="mech-label routine">Habit Formation · M13</div>
+        <div class="mech-title">Shareable Routine Link</div>
+        <div class="mech-desc">Post-purchase page shows a unique URL: <code>bighibrothers.com/ritual/priya</code>. This page shows their saved 3-step routine with "Copy my routine" and WhatsApp share. Each share = new user acquisition + social proof. When a friend orders via this link, both get ₹20 credit.</div>
+        <div class="mech-why">"Your best marketing channel is a satisfied customer mid-ritual. Give them a tool to share it."</div>
+        <div class="mech-effort"><div class="effort-dot effort-2"></div> 4-day build · unique slug + referral logic</div>
+      </div>
+      <div class="preview-wrap">
+        <div class="preview-label">Post-Purchase Page — Share Section <span>Live Preview</span></div>
+        <div class="preview-inner">
+          <div style="text-align:center;padding:4px 0">
+            <div style="font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.16em;text-transform:uppercase;color:var(--amber);margin-bottom:8px;">Your Ritual is Saved</div>
+            <div style="font-family:'Playfair Display',serif;font-size:1rem;color:var(--forest);font-weight:700;margin-bottom:4px;font-style:italic;">The Clarity Morning Ritual</div>
+            <div style="font-size:0.75rem;color:var(--warm);margin-bottom:14px;">Marigold Soap · Café Vanilla · Shea Cream</div>
+            <div style="background:var(--mist);border-radius:2px;padding:8px 12px;font-family:'DM Mono',monospace;font-size:0.62rem;color:var(--forest);margin-bottom:12px;letter-spacing:0.04em;">bighibrothers.com/ritual/priya</div>
+            <div style="display:flex;gap:8px;justify-content:center">
+              <button style="background:#25D366;color:white;border:none;padding:8px 16px;font-family:'Cormorant Garamond',serif;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;border-radius:2px;cursor:pointer;">💬 Share on WhatsApp</button>
+              <button style="background:var(--forest);color:var(--cream);border:none;padding:8px 16px;font-family:'Cormorant Garamond',serif;font-size:0.72rem;letter-spacing:0.1em;text-transform:uppercase;border-radius:2px;cursor:pointer;">Copy Link</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════ -->
+  <!-- S5: RE-ENGAGEMENT                  -->
+  <!-- ══════════════════════════════════ -->
+  <div class="page-section" id="s5">
+    <div class="ps-header">
+      <div class="ps-left">
+        <div class="ps-tag">Stage 05 · Churn Prevention</div>
+        <div class="ps-h">Re-engagement — <em>Win Back & Expand</em></div>
+        <div class="ps-meta">
+          <span class="ps-badge reorder">Win-back</span>
+          <span class="ps-badge upsell">LTV Expansion</span>
+        </div>
+      </div>
+      <div class="ps-right">
+        <div class="ps-impact">Churn Recovery</div>
+        <div class="ps-impact-val med">25–40%</div>
+      </div>
+    </div>
+
+    <!-- Mechanic 14 -->
+    <div class="mechanic">
+      <div class="mech-spec">
+        <div class="mech-label reorder">Win-back · M14</div>
+        <div class="mech-title">Day 45 Silence Trigger</div>
+        <div class="mech-desc">If a customer hasn't reordered 45 days after purchase (and soap should be finished), fire a single win-back message: a simple question, not a discount. Ask what happened. The reply rate is 30–40% and the insight is invaluable. Discounts come only at Day 60 and only if Day 45 got no response.</div>
+        <div class="mech-why">"Don't panic-discount at Day 45. Ask first. Understand churn before paying to reverse it."</div>
+        <div class="mech-effort"><div class="effort-dot effort-1"></div> 1-day build · Make.com condition branch</div>
+      </div>
+      <div class="preview-wrap">
+        <div class="preview-label">Win-back Sequence Logic <span>Blueprint</span></div>
+        <div class="preview-inner">
+          <div class="ui-timeline">
+            <div class="tl-item">
+              <div class="tl-day">Day 45</div>
+              <div class="tl-dot" style="background:#9C6DD8"></div>
+              <div class="tl-content">
+                <div class="tl-title">Soft check-in (no discount)</div>
+                <div class="tl-msg">"Hey [Name] — just checking in. Did your soap run out? Reply YES to reorder or NO to let us know what happened."</div>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-day">Day 52</div>
+              <div class="tl-dot" style="background:var(--amber)"></div>
+              <div class="tl-content">
+                <div class="tl-title">If no reply — seasonal variant offer</div>
+                <div class="tl-msg">"We just made a new summer batch — Rose & Sandalwood. Your usual soap is still waiting too. ₹10 off this week only."</div>
+              </div>
+            </div>
+            <div class="tl-item">
+              <div class="tl-day">Day 60</div>
+              <div class="tl-dot" style="background:var(--reorder)"></div>
+              <div class="tl-content">
+                <div class="tl-title">Final — 3-month bundle offer</div>
+                <div class="tl-msg">"Last message — 3-month ritual bundle at 15% off. After this, we'll stop messaging. No hard feelings 🌿"</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Mechanic 15 -->
+    <div class="mechanic">
+      <div class="mech-spec">
+        <div class="mech-label upsell">LTV Expansion · M15</div>
+        <div class="mech-title">Seasonal Rotation Campaigns</div>
+        <div class="mech-desc">4 times a year, send a broadcast to all active WhatsApp numbers: "New summer batch just dropped." Rotate the featured product monthly in the homepage hero. This requires zero new product — just a 1-line config change and a broadcast message. Seasonal urgency converts at 2–3× normal rate.</div>
+        <div class="mech-why">"Seasonality creates natural reorder urgency without discounting. 'Summer batch' communicates freshness and scarcity."</div>
+        <div class="mech-effort"><div class="effort-dot effort-1"></div> Monthly admin task · 30 min/campaign</div>
+      </div>
+      <div class="preview-wrap">
+        <div class="preview-label">Seasonal Campaign — WhatsApp Broadcast <span>Template</span></div>
+        <div class="preview-inner">
+          <div style="background:#ECE5DD;border-radius:6px;padding:16px;max-width:300px;margin:0 auto;">
+            <div style="font-family:'DM Mono',monospace;font-size:0.55rem;letter-spacing:0.1em;color:#25D366;margin-bottom:10px;">💬 Bighi Brothers</div>
+            <div style="background:white;border-radius:0 8px 8px 8px;padding:12px 14px;font-size:0.82rem;line-height:1.55;box-shadow:0 1px 2px rgba(0,0,0,0.1)">
+              Hey [Name] 🌿<br><br>
+              Summer batch just dropped — <strong>Rose & Sandalwood Soap</strong>. Made for hot months: cooling, anti-tan, aromatherapy.<br><br>
+              Only 40 bars this batch.<br><br>
+              Reply <strong>SUMMER</strong> to order ₹50 →
+              <div style="font-size:0.62rem;color:#999;margin-top:6px;text-align:right">10:31 AM ✓✓</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════ -->
+  <!-- S6: DATA CAPTURE OS                -->
+  <!-- ══════════════════════════════════ -->
+  <div class="page-section" id="s6">
+    <div class="ps-header">
+      <div class="ps-left">
+        <div class="ps-tag">System 06 · Infrastructure</div>
+        <div class="ps-h">Data Capture <em>Operating System</em></div>
+        <div class="ps-meta">
+          <span class="ps-badge capture">All Touchpoints</span>
+        </div>
+      </div>
+    </div>
+
+    <p style="font-size:0.9rem;color:var(--warm);max-width:580px;line-height:1.7;margin-bottom:28px;">Every piece of captured data should map to a downstream action. If it doesn't, don't capture it. Here's the complete map of what to capture, where, and what it unlocks.</p>
+
+    <table class="data-table">
+      <thead>
+        <tr><th>Data Point</th><th>Capture Location</th><th>Mechanic That Fires</th><th>Priority</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>📱 Phone Number (WhatsApp)</td>
+          <td>Checkout (Step 1) · Scroll CTA bar · Skin quiz</td>
+          <td>Entire post-purchase sequence · Refill nudges · Broadcasts</td>
+          <td><span style="color:var(--reorder);font-family:'DM Mono',monospace;font-size:0.65rem">🔴 P0 — Without this, nothing works</span></td>
+        </tr>
+        <tr>
+          <td>🧴 Skin Type</td>
+          <td>Hero pill selector · Skin quiz</td>
+          <td>Personalized product recommendations · Seasonal variant targeting</td>
+          <td><span style="color:var(--amber);font-family:'DM Mono',monospace;font-size:0.65rem">🟠 P1 — Enables personalization</span></td>
+        </tr>
+        <tr>
+          <td>🎯 Primary Concern</td>
+          <td>Skin quiz (Q2)</td>
+          <td>Routine map output · Product page messaging · WA content personalization</td>
+          <td><span style="color:var(--amber);font-family:'DM Mono',monospace;font-size:0.65rem">🟠 P1 — Drives routine relevance</span></td>
+        </tr>
+        <tr>
+          <td>🛒 Products Owned</td>
+          <td>Purchase history (Razorpay webhook)</td>
+          <td>"Completes Your Routine" module · Refill countdown per product</td>
+          <td><span style="color:var(--reorder);font-family:'DM Mono',monospace;font-size:0.65rem">🔴 P0 — Core of reorder system</span></td>
+        </tr>
+        <tr>
+          <td>📅 Order Date</td>
+          <td>Razorpay webhook → Airtable</td>
+          <td>Triggers Day 7/14/22/30 WhatsApp sequence · Refill countdown</td>
+          <td><span style="color:var(--reorder);font-family:'DM Mono',monospace;font-size:0.65rem">🔴 P0 — All automation depends on this</span></td>
+        </tr>
+        <tr>
+          <td>💬 WA Reply Behavior</td>
+          <td>Interakt inbound (replies to messages)</td>
+          <td>Churn prediction · Engagement score · Skip/Pause handling</td>
+          <td><span style="color:#2E7D32;font-family:'DM Mono',monospace;font-size:0.65rem">🟢 P2 — Improves system over time</span></td>
+        </tr>
+        <tr>
+          <td>👁 Product Page Views</td>
+          <td>JS event on 3s+ page dwell</td>
+          <td>Interest signal → WhatsApp follow-up if no purchase in 48h</td>
+          <td><span style="color:#2E7D32;font-family:'DM Mono',monospace;font-size:0.65rem">🟢 P2 — Advanced retargeting</span></td>
+        </tr>
+        <tr>
+          <td>📊 Routine Completion %</td>
+          <td>localStorage routine state → server on checkout</td>
+          <td>"Complete Your Ritual" upsell personalization · Subscription candidate signal</td>
+          <td><span style="color:#2E7D32;font-family:'DM Mono',monospace;font-size:0.65rem">🟢 P2 — Segmentation</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout" style="margin-top:20px">
+      <strong>The Minimum Viable Data Stack:</strong> Phone number + Order date + Products ordered. These three fields, stored in an Airtable table keyed by phone number, unlock the entire refill automation system. Everything else is an upgrade.
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════ -->
+  <!-- S7: PRIORITIZATION                 -->
+  <!-- ══════════════════════════════════ -->
+  <div class="page-section" id="s7">
+    <div class="ps-header">
+      <div class="ps-left">
+        <div class="ps-tag">System 07 · Execution</div>
+        <div class="ps-h">Build in <em>This Exact Order</em></div>
+      </div>
+      <div class="ps-right">
+        <div class="ps-impact">Total Build Time</div>
+        <div class="ps-impact-val">14 Days</div>
+      </div>
+    </div>
+
+    <table class="data-table">
+      <thead>
+        <tr><th>#</th><th>Mechanic</th><th>Where</th><th>Days</th><th>Expected Impact</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>1</td>
+          <td>Phone capture as checkout Field 1</td>
+          <td>Checkout form</td>
+          <td>0.5</td>
+          <td>Unlocks everything downstream</td>
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>Airtable customer DB (phone + products + order date)</td>
+          <td>Backend</td>
+          <td>1</td>
+          <td>Foundation for all automation</td>
+        </tr>
+        <tr>
+          <td>3</td>
+          <td>WhatsApp Day 22 refill nudge (single message)</td>
+          <td>Make.com + Interakt</td>
+          <td>2</td>
+          <td>+35% reorder rate from existing customers</td>
+        </tr>
+        <tr>
+          <td>4</td>
+          <td>WA opt-in checkbox on product page + order confirm</td>
+          <td>Product page, checkout</td>
+          <td>1</td>
+          <td>Legal consent + high opt-in rate</td>
+        </tr>
+        <tr>
+          <td>5</td>
+          <td>Full 6-message post-purchase sequence</td>
+          <td>Make.com automation</td>
+          <td>3</td>
+          <td>2× LTV per customer over 3 months</td>
+        </tr>
+        <tr>
+          <td>6</td>
+          <td>Hero skin concern pill selector</td>
+          <td>Homepage hero</td>
+          <td>1</td>
+          <td>+25% product page CTR</td>
+        </tr>
+        <tr>
+          <td>7</td>
+          <td>Routine step labels on product cards</td>
+          <td>Product cards</td>
+          <td>0.5</td>
+          <td>Routine framing without new components</td>
+        </tr>
+        <tr>
+          <td>8</td>
+          <td>Subscribe & Save price toggle</td>
+          <td>Product page</td>
+          <td>3</td>
+          <td>10–15% of buyers convert to subscription</td>
+        </tr>
+        <tr>
+          <td>9</td>
+          <td>"Completes Your Routine" module</td>
+          <td>Product page + cart</td>
+          <td>2</td>
+          <td>+35% AOV for single-product buyers</td>
+        </tr>
+        <tr>
+          <td>10</td>
+          <td>Shareable routine link + referral</td>
+          <td>Post-purchase page</td>
+          <td>4</td>
+          <td>Organic acquisition at near-zero CAC</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="two-col" style="margin-top:28px">
+      <div class="callout">
+        <strong>The single most important thing to build first:</strong><br><br>
+        Phone number capture at checkout + Day 22 WhatsApp refill message.<br><br>
+        These two mechanics cost 2.5 days to build and will recover 30–40% of customers who would otherwise churn silently. Everything else in this document is an upgrade on top of this foundation.
+      </div>
+      <div class="callout" style="background:var(--mist);color:var(--charcoal)">
+        <strong style="color:var(--forest)">The one number to track:</strong><br><br>
+        <strong style="color:var(--amber);font-size:1.2rem">Day-30 Repeat Rate.</strong><br><br>
+        If it's below 20% after building this system, the problem is product, not mechanics. If it's above 35%, you have a compounding retention engine — and the unit economics for paid acquisition now make sense.
+      </div>
+    </div>
+  </div>
+
+</main>
+</div>
+
+<script>
+function togglePill(el) {
+  el.closest('.uss-pills').querySelectorAll('.uss-pill').forEach(p => p.classList.remove('active'));
+  el.classList.add('active');
+  const val = el.textContent;
+  el.closest('.ui-skin-selector').querySelector('.uss-note').textContent = `Showing 3 products for "${val}" →`;
+}
+function toggleSub(el) {
+  el.closest('.st-options').querySelectorAll('.st-option').forEach(o => o.classList.remove('active'));
+  el.classList.add('active');
+}
+// Sidebar active link on scroll
+document.querySelectorAll('.sn-link').forEach(link => {
+  link.addEventListener('click', e => {
+    document.querySelectorAll('.sn-link').forEach(l => l.classList.remove('active'));
+    link.classList.add('active');
+  });
+});
+// Animate score bars on load
+window.addEventListener('load', () => {
+  setTimeout(() => {
+    document.querySelectorAll('.sb-fill').forEach(bar => {
+      const w = bar.style.width;
+      bar.style.width = '0';
+      setTimeout(() => { bar.style.width = w; }, 100);
+    });
+  }, 400);
+});
+</script>
+</body>
+</html>
