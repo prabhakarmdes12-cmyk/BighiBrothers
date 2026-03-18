@@ -143,100 +143,6 @@ nav.solid .nav-cart-btn{color:var(--forest)}
 }
 .nav-cart-badge.show{opacity:1;transform:scale(1)}
 
-/* ─── DAY/NIGHT TOGGLE ──────────────────────── */
-.theme-toggle{
-  position:relative;background:none;border:none;cursor:pointer;
-  width:42px;height:24px;padding:0;flex-shrink:0;
-}
-.theme-toggle-track{
-  width:42px;height:24px;border-radius:100px;
-  background:rgba(245,239,224,0.15);border:1px solid rgba(245,239,224,0.2);
-  position:relative;transition:background .4s,border-color .4s;
-  display:flex;align-items:center;
-}
-nav.solid .theme-toggle-track{
-  background:rgba(28,58,46,0.1);border-color:rgba(28,58,46,0.2);
-}
-body.day-mode .theme-toggle-track{
-  background:rgba(28,58,46,0.12);border-color:rgba(28,58,46,0.25);
-}
-.theme-toggle-thumb{
-  position:absolute;left:3px;
-  width:18px;height:18px;border-radius:50%;
-  background:var(--amber);
-  display:flex;align-items:center;justify-content:center;
-  font-size:0.62rem;line-height:1;
-  transition:transform .4s cubic-bezier(0.25,0.46,0.45,0.94),background .4s;
-  box-shadow:0 1px 4px rgba(0,0,0,0.2);
-}
-body.day-mode .theme-toggle-thumb{
-  transform:translateX(18px);background:#1C3A2E;
-}
-
-/* ─── LANGUAGE SELECTOR ─────────────────────── */
-.lang-select-wrap{position:relative;display:flex;align-items:center}
-.lang-btn{
-  display:flex;align-items:center;gap:5px;
-  background:none;border:none;cursor:pointer;padding:4px 8px;
-  font-family:'Cormorant Garamond',serif;font-size:0.72rem;
-  letter-spacing:0.1em;color:rgba(245,239,224,0.7);
-  transition:color .3s;border-radius:2px;
-  white-space:nowrap;
-}
-nav.solid .lang-btn{color:var(--forest)}
-body.day-mode .lang-btn{color:var(--forest) !important}
-.lang-btn:hover{color:var(--amber) !important}
-.lang-btn-flag{font-size:0.85rem}
-.lang-btn-arrow{
-  font-size:0.5rem;opacity:0.6;
-  transition:transform .3s;display:inline-block;
-}
-.lang-select-wrap.open .lang-btn-arrow{transform:rotate(180deg)}
-.lang-dropdown{
-  position:absolute;top:calc(100% + 8px);right:0;
-  background:var(--offwhite);border:1px solid var(--border);
-  border-radius:3px;overflow:hidden;z-index:600;
-  box-shadow:0 8px 32px rgba(28,58,46,0.15);
-  min-width:180px;
-  opacity:0;transform:translateY(-6px);pointer-events:none;
-  transition:opacity .3s,transform .3s;
-}
-.lang-select-wrap.open .lang-dropdown{
-  opacity:1;transform:translateY(0);pointer-events:all;
-}
-.lang-option{
-  display:flex;align-items:center;gap:10px;
-  padding:10px 14px;cursor:pointer;
-  font-family:'EB Garamond',serif;font-size:0.88rem;
-  color:var(--charcoal);transition:background .2s,color .2s;
-  border-bottom:1px solid rgba(28,58,46,0.06);
-}
-.lang-option:last-child{border-bottom:none}
-.lang-option:hover{background:rgba(28,58,46,0.05);color:var(--forest)}
-.lang-option.active{background:rgba(200,131,26,0.08);color:var(--amber)}
-.lang-option-flag{font-size:1rem;flex-shrink:0}
-.lang-option-name{flex:1;font-weight:500}
-.lang-option-native{font-size:0.78rem;color:var(--warm);font-style:italic}
-
-/* ─── DAY MODE OVERRIDES ────────────────────── */
-body.day-mode{
-  --forest2:#2a5240;
-  --forest:#1C3A2E;
-}
-body.day-mode .hero{background:#2a5240}
-body.day-mode .hero-parallax{filter:saturate(0.85) brightness(0.65)}
-body.day-mode .hero-parallax-mid{
-  background:linear-gradient(180deg,
-    rgba(42,82,64,0.2) 0%,rgba(42,82,64,0.5) 40%,
-    rgba(42,82,64,0.75) 85%,#2a5240 100%);
-}
-body.day-mode #veil{background:#2a5240}
-body.day-mode .philosophy{background:var(--cream)}
-body.day-mode .phil-quote .reveal-line span,
-body.day-mode .phil-body strong{color:var(--forest)}
-body.day-mode .closing-ritual .cr-parallax{filter:brightness(0.75)}
-
-
 /* ═══════════════════════════════════════════════════
    SECTION 1: AWAKENING — HERO
    ═══════════════════════════════════════════════════ */
@@ -1171,6 +1077,53 @@ footer{background:var(--charcoal);padding:80px 80px 40px}
 }
 
 /* ─── RESPONSIVE ───────────────────────────────── */
+@media(max-width:1200px){
+  .hero-inner,.philosophy,.ingredients-chapter,.ritual-section,
+  .products-immersive,.proof-section,.closing-ritual{padding-left:48px;padding-right:48px}
+  nav,nav.solid{padding-left:32px;padding-right:32px}
+  .ing-strip{grid-template-columns:repeat(3,1fr)}
+  .pi-editorial{grid-template-columns:1fr 1fr;grid-template-rows:auto auto}
+  .icard.large{grid-row:auto}
+  .trust{padding:16px 32px;gap:28px}
+  .f-top{grid-template-columns:1fr 1fr;gap:36px}
+  footer{padding:60px 32px 32px}
+}
+@media(max-width:900px){
+  .hero-inner{padding:0 28px;padding-top:110px}
+  .hero-product-float{display:none}
+  .philosophy{padding:100px 28px}
+  .phil-number{display:none}
+  .ingredients-chapter,.ritual-section,.products-immersive,
+  .proof-section,.closing-ritual{padding:100px 28px}
+  .ing-chapter-header{flex-direction:column;align-items:flex-start;gap:16px}
+  .ing-chapter-sub{text-align:left}
+  .ing-strip{grid-template-columns:repeat(2,1fr)}
+  .ing-promises{grid-template-columns:1fr 1fr}
+  .ritual-steps{grid-template-columns:1fr}
+  .pi-header{flex-direction:column;align-items:flex-start;gap:16px}
+  .pi-editorial{grid-template-columns:1fr}
+  .icard.large .icard-visual{min-height:500px}
+  .proof-stat-row{gap:40px}
+  .proof-reviews{grid-template-columns:1fr}
+  .cr-stats{gap:36px}
+  .nav-links{display:none}
+  .f-top{grid-template-columns:1fr;gap:32px}
+  footer{padding:48px 20px 24px}
+}
+@media(max-width:600px){
+  .ing-strip{grid-template-columns:1fr 1fr}
+  .ing-promises{grid-template-columns:1fr}
+  .trust{display:none}
+  .cr-stats{flex-direction:column;align-items:center;gap:28px}
+  .hero-ctas{flex-direction:column;align-items:flex-start}
+}
+
+#veil {
+  display: none !important;
+}
+
+
+/* ─── HAMBURGER + MOBILE DRAWER ─────────────────── */
 .nav-hamburger{
   display:none;
   flex-direction:column;justify-content:center;gap:5px;
@@ -1202,9 +1155,7 @@ nav.solid .nav-hamburger span{background:var(--forest)}
   list-style:none;
   border-top:1px solid rgba(245,239,224,0.08);
 }
-.nav-drawer-links li{
-  border-bottom:1px solid rgba(245,239,224,0.08);
-}
+.nav-drawer-links li{border-bottom:1px solid rgba(245,239,224,0.08)}
 .nav-drawer-links a{
   display:block;padding:20px 0;
   font-family:'Playfair Display',serif;font-size:1.6rem;
@@ -1224,74 +1175,291 @@ nav.solid .nav-hamburger span{background:var(--forest)}
 .nav-drawer-cta .dc-primary{background:var(--amber);color:white}
 .nav-drawer-cta .dc-primary:hover{background:var(--forest)}
 .nav-drawer-cta .dc-wa{background:rgba(37,211,102,0.15);color:#25D366;border:1px solid rgba(37,211,102,0.3)}
-
-
-@media(max-width:1200px){
-  .hero-inner,.philosophy,.ingredients-chapter,.ritual-section,
-  .products-immersive,.proof-section,.closing-ritual{padding-left:48px;padding-right:48px}
-  nav,nav.solid{padding-left:32px;padding-right:32px}
-  .ing-strip{grid-template-columns:repeat(3,1fr)}
-  .pi-editorial{grid-template-columns:1fr 1fr;grid-template-rows:auto auto}
-  .icard.large{grid-row:auto}
-  .trust{padding:16px 32px;gap:28px}
-  .f-top{grid-template-columns:1fr 1fr;gap:36px}
-  footer{padding:60px 32px 32px}
+/* ─── DAY/NIGHT TOGGLE ──────────────────────── */
+.theme-toggle{
+  position:relative;background:none;border:none;cursor:pointer;
+  width:42px;height:24px;padding:0;flex-shrink:0;
 }
-@media(max-width:900px){
-  /* NAV */
-  nav,nav.solid{padding:14px 20px}
-  .nav-links{display:none}
-  .nav-cta{display:none}
-  .nav-hamburger{display:flex}
-
-  /* HERO */
-  .hero-inner{padding:0 20px;padding-top:90px}
-  .hero-product-float{display:none}
-
-  /* SECTIONS */
-  .philosophy{padding:72px 20px}
-  .phil-number{display:none}
-  .ingredients-chapter,.ritual-section,.products-immersive,
-  .proof-section,.closing-ritual{padding:72px 20px}
-  .ing-chapter-header{flex-direction:column;align-items:flex-start;gap:16px}
-  .ing-chapter-sub{text-align:left}
-  .ing-strip{grid-template-columns:repeat(2,1fr)}
-  .ing-promises{grid-template-columns:1fr 1fr}
-  .ritual-steps{grid-template-columns:1fr}
-  .pi-header{flex-direction:column;align-items:flex-start;gap:16px}
-  .pi-editorial{grid-template-columns:1fr}
-  .icard.large .icard-visual{min-height:400px}
-  .proof-stat-row{gap:40px}
-  .proof-reviews{grid-template-columns:1fr}
-  .cr-stats{gap:36px}
-  .f-top{grid-template-columns:1fr;gap:32px}
-  footer{padding:48px 20px 24px}
+.theme-toggle-track{
+  width:42px;height:24px;border-radius:100px;
+  background:rgba(245,239,224,0.15);border:1px solid rgba(245,239,224,0.2);
+  position:relative;transition:background .4s,border-color .4s;
+  display:flex;align-items:center;
 }
-@media(max-width:600px){
-  /* HERO */
-  .hero-inner{padding-top:80px}
-  .hero-sub{font-size:1rem;margin-bottom:32px}
-  .hero-ctas{flex-direction:column;align-items:flex-start;gap:12px}
-  .btn-ritual,.btn-ritual-ghost{font-size:0.76rem;padding:13px 28px}
-
-  /* SECTIONS */
-  .ing-strip{grid-template-columns:1fr}
-  .ing-char{padding:20px 16px}
-  .ing-promises{grid-template-columns:1fr}
-  .ing-promise{padding:20px 16px}
-  .trust{display:none}
-  .cr-stats{flex-direction:column;align-items:center;gap:20px}
-  .proof-stat-row{grid-template-columns:1fr 1fr;gap:24px;display:grid}
-  .ritual-steps{gap:24px}
-  .rstep{padding:28px 20px}
-  .cr-title{font-size:clamp(2rem,8vw,3rem)}
-  .f-top{gap:28px}
+nav.solid .theme-toggle-track{
+  background:rgba(28,58,46,0.1);border-color:rgba(28,58,46,0.2);
 }
+body.day-mode .theme-toggle-track{
+  background:rgba(28,58,46,0.12);border-color:rgba(28,58,46,0.25);
+}
+.theme-toggle-thumb{
+  position:absolute;left:3px;
+  width:18px;height:18px;border-radius:50%;
+  background:var(--amber);
+  display:flex;align-items:center;justify-content:center;
+  font-size:0.62rem;line-height:1;
+  transition:transform .4s cubic-bezier(0.25,0.46,0.45,0.94),background .4s;
+  box-shadow:0 1px 4px rgba(0,0,0,0.2);
+}
+body.day-mode .theme-toggle-thumb{
+  transform:translateX(18px);background:#1C3A2E;
+}
+
+/* ─── LANGUAGE PILL TOGGLE ──────────────────── */
+.lang-pill{
+  position:relative;display:flex;align-items:center;
+  background:rgba(245,239,224,0.1);
+  border:1px solid rgba(245,239,224,0.18);
+  border-radius:100px;padding:3px;
+  cursor:pointer;user-select:none;
+  transition:background .3s,border-color .3s;
+  height:26px;flex-shrink:0;
+}
+nav.solid .lang-pill{background:rgba(28,58,46,0.08);border-color:rgba(28,58,46,0.18)}
+.lang-pill-opt{
+  position:relative;z-index:2;
+  padding:0 9px;
+  font-family:'DM Mono',monospace;font-size:0.62rem;
+  letter-spacing:0.06em;text-transform:uppercase;
+  color:rgba(245,239,224,0.45);
+  transition:color .35s;line-height:20px;white-space:nowrap;
+}
+nav.solid .lang-pill-opt{color:rgba(28,58,46,0.4)}
+body.day-mode .lang-pill{background:rgba(28,58,46,0.08)!important;border-color:rgba(28,58,46,0.2)!important}
+body.day-mode .lang-pill-opt{color:rgba(28,58,46,0.4)!important}
+.lang-pill[data-active="en"] .lang-pill-opt[data-lang="en"],
+.lang-pill[data-active="hi"] .lang-pill-opt[data-lang="hi"]{
+  color:rgba(245,239,224,0.95);font-weight:600;
+}
+nav.solid .lang-pill[data-active="en"] .lang-pill-opt[data-lang="en"],
+nav.solid .lang-pill[data-active="hi"] .lang-pill-opt[data-lang="hi"],
+body.day-mode .lang-pill[data-active="en"] .lang-pill-opt[data-lang="en"],
+body.day-mode .lang-pill[data-active="hi"] .lang-pill-opt[data-lang="hi"]{
+  color:var(--forest)!important;font-weight:600;
+}
+.lang-pill-thumb{
+  position:absolute;top:3px;left:3px;
+  width:calc(50% - 3px);height:calc(100% - 6px);
+  border-radius:100px;background:var(--amber);
+  transition:transform .35s cubic-bezier(0.25,0.46,0.45,0.94),background .3s;
+  z-index:1;
+}
+body.day-mode .lang-pill-thumb{background:var(--forest)}
+.lang-pill[data-active="hi"] .lang-pill-thumb{transform:translateX(100%)}
+
+/* ─── DAY MODE BUTTONS ──────────────────────── */
+body.day-mode .btn-ritual{
+  color:var(--forest);
+  border-color:rgba(28,58,46,0.35);
+}
+body.day-mode .btn-ritual:hover{color:white;border-color:var(--amber)}
+body.day-mode .btn-ritual-ghost{color:rgba(28,58,46,0.55)}
+body.day-mode .btn-ritual-ghost:hover{color:var(--amber)}
+body.day-mode .btn-cr-primary{background:var(--amber);color:white}
+body.day-mode .btn-cr-primary:hover{background:var(--forest)}
+body.day-mode .nav-cta{background:var(--forest)!important;color:var(--cream)!important}
+body.day-mode .hpf-btn{background:var(--forest);color:var(--cream);border-color:var(--forest)}
+
+.reveal-line{
+  display:block;overflow:hidden;
+  padding-top:5px;margin-top:-5px;
+}
+.reveal-line span{
+  display:block;
+  opacity:0;transform:translateY(100%);
+  padding-top:3px;
+  transition:opacity 0.9s var(--ease),transform 0.9s var(--ease);
+}
+.reveal-line span.on{opacity:1;transform:translateY(0)}
+
+.reveal-line{
+  display:block;overflow:hidden;
+  padding-top:5px;margin-top:-5px;
+}
+.reveal-line span{
+  display:block;
+  opacity:0;transform:translateY(100%);
+  padding-top:3px;
+  transition:opacity 0.9s var(--ease),transform 0.9s var(--ease);
+}
+.reveal-line span.on{opacity:1;transform:translateY(0)}
+
+
+/* ─── DAY MODE — PARCHMENT EDITORIAL ────────────────────────
+   Full contrast flip: warm paper background, dark ink text.
+   Night mode (default): dark forest. Day mode: warm parchment.
+   ──────────────────────────────────────────────────────── */
+body.day-mode{
+  background:#F7F0E3;
+  color:#1A1A1A;
+}
+
+/* NAV */
+body.day-mode nav{
+  background:rgba(247,240,227,0.97)!important;
+  border-bottom:1px solid rgba(28,58,46,0.12);
+}
+body.day-mode .nav-links a{ color:#1C3A2E!important }
+body.day-mode .nav-cta{ background:var(--forest)!important; color:var(--cream)!important }
+body.day-mode .nav-cart-btn{ color:var(--forest)!important }
+body.day-mode .nav-hamburger span{ background:var(--forest)!important }
+body.day-mode .ann{ background:var(--forest); color:var(--cream) }
+
+/* HERO */
+body.day-mode .hero{ background:#F7F0E3 }
+body.day-mode .hero-parallax{
+  filter:saturate(0.3) brightness(0.15) sepia(0.4);
+  opacity:0.18;
+}
+body.day-mode .hero-parallax-mid{
+  background:linear-gradient(180deg,
+    rgba(247,240,227,0.7) 0%,
+    rgba(247,240,227,0.88) 50%,
+    #F7F0E3 85%
+  );
+}
+body.day-mode .hero-title{ color:#1C3A2E }
+body.day-mode .hero-title .italic{ color:var(--amber) }
+body.day-mode .hero-eyebrow-text{ color:var(--amber) }
+body.day-mode .hero-eyebrow-line{ background:var(--amber) }
+body.day-mode .hero-sub{ color:rgba(26,26,26,0.75) }
+body.day-mode .hero-scroll{ color:rgba(26,26,26,0.4) }
+body.day-mode #veil{ background:#F7F0E3 }
+
+/* HERO PRODUCT FLOAT */
+body.day-mode .hero-product-float{
+  background:#EFE8D6;
+  border-color:rgba(28,58,46,0.12);
+}
+body.day-mode .hpf-step{ color:var(--amber) }
+body.day-mode .hpf-name{ color:#1C3A2E }
+body.day-mode .hpf-chip{ background:rgba(28,58,46,0.08); color:var(--forest) }
+body.day-mode .hpf-price{ color:var(--forest) }
+body.day-mode .hpf-btn{ background:var(--forest); color:var(--cream); border-color:var(--forest) }
+
+/* TRUST BAR */
+body.day-mode .trust{
+  background:#EFE8D6;
+  border-top:1px solid rgba(28,58,46,0.1);
+  border-bottom:1px solid rgba(28,58,46,0.1);
+}
+body.day-mode .ti{ color:#1A1A1A }
+
+/* PHILOSOPHY */
+body.day-mode .philosophy{ background:#EFE8D6 }
+body.day-mode .phil-number{ color:rgba(28,58,46,0.07) }
+body.day-mode .phil-label{ color:var(--amber) }
+body.day-mode .phil-quote .reveal-line span{ color:#1C3A2E }
+body.day-mode .phil-body{ color:#1A1A1A }
+body.day-mode .phil-body strong{ color:var(--forest) }
+body.day-mode .phil-divider-line{ background:rgba(28,58,46,0.15) }
+body.day-mode .phil-divider-mark{ color:var(--amber) }
+
+/* INGREDIENTS */
+body.day-mode .ingredients-chapter{ background:#F7F0E3 }
+body.day-mode .ing-chapter-label{ color:var(--amber) }
+body.day-mode .ing-chapter-h{ color:#1C3A2E }
+body.day-mode .ing-chapter-sub{ color:rgba(26,26,26,0.65) }
+body.day-mode .ing-char{
+  background:#EFE8D6;
+  border:1px solid rgba(28,58,46,0.1);
+}
+body.day-mode .ing-char:hover{ background:#E8E0CC; border-color:var(--amber) }
+body.day-mode .ing-char-origin{ color:var(--amber) }
+body.day-mode .ing-char-name{ color:#1C3A2E }
+body.day-mode .ing-char-benefit{ color:rgba(26,26,26,0.7) }
+body.day-mode .ing-promise{
+  background:#EFE8D6;
+  border:1px solid rgba(28,58,46,0.1);
+}
+body.day-mode .ip-icon{ color:var(--amber) }
+body.day-mode .ip-title{ color:#1C3A2E }
+body.day-mode .ip-desc{ color:rgba(26,26,26,0.65) }
+
+/* RITUAL */
+body.day-mode .ritual-section{ background:#EFE8D6 }
+body.day-mode .ritual-label{ color:var(--amber) }
+body.day-mode .ritual-title{ color:#1C3A2E }
+body.day-mode .ritual-subtitle{ color:rgba(26,26,26,0.65) }
+body.day-mode .rstep{
+  background:#F7F0E3;
+  border:1px solid rgba(28,58,46,0.1);
+}
+body.day-mode .rstep:hover{ border-color:var(--amber) }
+body.day-mode .rstep-num{ color:rgba(28,58,46,0.08) }
+body.day-mode .rstep-time{ color:var(--amber) }
+body.day-mode .rstep-name{ color:#1C3A2E }
+body.day-mode .rstep-desc{ color:rgba(26,26,26,0.7) }
+body.day-mode .rstep-products li{ color:rgba(26,26,26,0.6) }
+body.day-mode .rstep-cta{ color:var(--forest) }
+body.day-mode .rstep-cta:hover{ color:var(--amber) }
+
+/* PRODUCTS */
+body.day-mode .products-immersive{ background:#F7F0E3 }
+body.day-mode .pi-label{ color:var(--amber) }
+body.day-mode .pi-h{ color:#1C3A2E }
+body.day-mode .pi-view-all{ color:var(--forest) }
+body.day-mode .icard{
+  border:1px solid rgba(28,58,46,0.12);
+}
+body.day-mode .icard:hover{ border-color:var(--amber) }
+body.day-mode .icard-step{ color:var(--amber) }
+body.day-mode .icard-name{ color:#F7F0E3 }
+body.day-mode .icard-tagline{ color:rgba(245,239,224,0.75) }
+body.day-mode .icard-price{ color:rgba(245,239,224,0.9) }
+
+/* PROOF / REVIEWS */
+body.day-mode .proof-section{ background:#EFE8D6 }
+body.day-mode .proof-eyebrow-text{ color:var(--amber) }
+body.day-mode .ps-num{ color:#1C3A2E }
+body.day-mode .ps-label{ color:rgba(26,26,26,0.6) }
+body.day-mode .review-card{
+  background:#F7F0E3;
+  border:1px solid rgba(28,58,46,0.1);
+}
+body.day-mode .rc-stars{ color:var(--amber) }
+body.day-mode .rc-quote{ color:#1A1A1A }
+body.day-mode .rc-name{ color:#1C3A2E }
+body.day-mode .rc-loc{ color:rgba(26,26,26,0.5) }
+body.day-mode .rc-product{ color:rgba(26,26,26,0.5) }
+body.day-mode .rc-av{ background:var(--amber); color:white }
+
+/* CLOSING RITUAL — stays dark intentionally, it's a CTA hero */
+body.day-mode .closing-ritual{ background:#1C3A2E }
+body.day-mode .cr-label{ color:var(--amberl) }
+body.day-mode .cr-title{ color:var(--cream) }
+body.day-mode .cr-subtitle{ color:rgba(245,239,224,0.75) }
+body.day-mode .crs-num{ color:var(--amberl) }
+body.day-mode .crs-label{ color:rgba(245,239,224,0.6) }
+
+/* SECTION CONNECTORS */
+body.day-mode .sc-dark-to-forest{ background:linear-gradient(to bottom,#F7F0E3,#EFE8D6)!important }
+
+/* FOOTER */
+body.day-mode footer{ background:#EFE8D6; border-top:1px solid rgba(28,58,46,0.12) }
+body.day-mode .f-tagline{ color:rgba(26,26,26,0.6) }
+body.day-mode .fcol-t{ color:#1C3A2E }
+body.day-mode .flinks a{ color:rgba(26,26,26,0.6) }
+body.day-mode .flinks a:hover{ color:var(--amber) }
+body.day-mode .fc-item{ color:rgba(26,26,26,0.65) }
+body.day-mode .f-bottom{ border-top:1px solid rgba(28,58,46,0.1); color:rgba(26,26,26,0.45) }
+body.day-mode .f-bottom a{ color:rgba(26,26,26,0.45) }
+body.day-mode .pay-b{ border-color:rgba(28,58,46,0.2); color:rgba(26,26,26,0.5) }
 
 /* MOBILE DRAWER */
+body.day-mode .nav-drawer{ background:#F7F0E3 }
+body.day-mode .nav-drawer-links a{ color:#1C3A2E }
+body.day-mode .nav-drawer-links li{ border-color:rgba(28,58,46,0.1) }
+body.day-mode .nav-drawer-links a:hover{ color:var(--amber) }
+body.day-mode .nav-drawer-cta .dc-primary{ background:var(--forest); color:var(--cream) }
 
-#veil {
-  display: none !important;
+/* SCROLL INDICATOR */
+body.day-mode .scroll-line{ background:rgba(28,58,46,0.15) }
+body.day-mode .scroll-dot{ background:var(--amber) }
+
+/* SECTION CONNECTOR OVERRIDES */
+body.day-mode .section-connector[style*="forest"]{
+  background:linear-gradient(to bottom,#EFE8D6,#F7F0E3)!important;
 }
 </style>
 </head>
@@ -1306,7 +1474,7 @@ nav.solid .nav-hamburger span{background:var(--forest)}
 <div id="cur-ring"></div>
 
 <!-- ANNOUNCEMENT -->
-<div class="ann">🌿 Free shipping above ₹499 &nbsp;·&nbsp; <b>Use NATURAL10</b> for 10% off your first order</div>
+<div class="ann"><span data-i18n="ann">🌿 Free shipping above ₹499 &nbsp;·&nbsp; <b>Use NATURAL10</b> for 10% off your first order</span></div>
 
 <!-- NAV -->
 <nav id="nav">
@@ -1314,26 +1482,23 @@ nav.solid .nav-hamburger span{background:var(--forest)}
     <img src="https://static.wixstatic.com/media/c5dfb1_9e5ef8c1985e4d54ae6e53e5b7e60dca~mv2.png/v1/fill/w_200,h_60,al_c,q_85/c5dfb1_9e5ef8c1985e4d54ae6e53e5b7e60dca~mv2.png" alt="Bighi Brothers">
   </a>
   <ul class="nav-links">
-    <li><a href="bighi_shop_pages.html">Collection</a></li>
-    <li><a href="#ritual">Ritual</a></li>
-    <li><a href="#products">Products</a></li>
-    <li><a href="#ingredients">Ingredients</a></li>
-    <li><a href="#about">Story</a></li>
+    <li><a href="bighi_shop_pages.html"><span data-i18n="nav.collection">Collection</span></a></li>
+    <li><a href="#ritual"><span data-i18n="nav.ritual">Ritual</span></a></li>
+    <li><a href="#products"><span data-i18n="nav.products">Products</span></a></li>
+    <li><a href="#ingredients"><span data-i18n="nav.ingredients">Ingredients</span></a></li>
+    <li><a href="#about"><span data-i18n="nav.story">Story</span></a></li>
   </ul>
   <div class="nav-right">
-    <!-- Language selector -->
-    <div class="lang-select-wrap">
-      <button class="lang-btn" onclick="toggleLang(this)" aria-label="Language">
-        <span class="lang-btn-flag">🇮🇳</span>
-        <span class="lang-btn-label">English</span>
-        <span class="lang-btn-arrow">▾</span>
-      </button>
-      <div class="lang-dropdown"></div>
+    <!-- Language pill toggle -->
+    <div class="lang-pill" id="lang-pill" onclick="toggleLang()" title="Switch language / भाषा बदलें">
+      <span class="lang-pill-opt" data-lang="en">EN</span>
+      <span class="lang-pill-opt" data-lang="hi">हि</span>
+      <div class="lang-pill-thumb"></div>
     </div>
     <!-- Day/Night toggle -->
     <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme" title="Day / Night">
       <div class="theme-toggle-track">
-        <div class="theme-toggle-thumb">☀️</div>
+        <div class="theme-toggle-thumb"></div>
       </div>
     </button>
     <!-- Cart -->
@@ -1384,34 +1549,34 @@ nav.solid .nav-hamburger span{background:var(--forest)}
 
     <div class="hero-eyebrow" id="hero-eyebrow">
       <div class="hero-eyebrow-line"></div>
-      <span class="hero-eyebrow-text">Handcrafted India · Est. 2022</span>
+      <span class="hero-eyebrow-text"><span data-i18n="hero.eyebrow">Handcrafted India · Est. 2022</span></span>
     </div>
 
     <h1 class="hero-title" id="hero-title">
       <span class="hero-title-line">
-        <span class="word">The</span>
-        <span class="word">skin</span>
-        <span class="word">remembers</span>
+        <span class="word" data-i18n="hero.title.1">The</span>
+        <span class="word" data-i18n="hero.title.2">skin</span>
+        <span class="word" data-i18n="hero.title.3">remembers</span>
       </span>
       <span class="hero-title-line">
-        <span class="word italic">what nature</span>
+        <span class="word italic" data-i18n="hero.title.4">what nature</span>
       </span>
       <span class="hero-title-line">
-        <span class="word">intended.</span>
+        <span class="word" data-i18n="hero.title.5">intended.</span>
       </span>
     </h1>
 
     <p class="hero-sub" id="hero-sub">
-      Cold-process soaps and botanical rituals, handmade in small batches from India's purest ingredients. Not skincare — a practice.
+      <span data-i18n="hero.sub">Cold-process soaps and botanical rituals, handmade in small batches from India's purest ingredients. Not skincare — a practice.</span>
     </p>
 
     <div class="hero-ctas" id="hero-ctas">
       <a href="#ritual" class="btn-ritual">
-        <span>Enter the Ritual</span>
+        <span><span data-i18n="hero.cta1">Enter the Ritual</span>
         <span class="btn-ritual-arrow">→</span>
       </a>
       <a href="#products" class="btn-ritual-ghost">
-        Explore Products ↓
+        <span data-i18n="hero.cta2">Explore Products ↓</span>
       </a>
     </div>
 
@@ -1445,11 +1610,11 @@ nav.solid .nav-hamburger span{background:var(--forest)}
 
 <!-- TRUST BAR -->
 <div class="trust">
-  <div class="ti"><span class="ti-icon">🌿</span> 100% Natural Ingredients</div>
-  <div class="ti"><span class="ti-icon">🧪</span> Cold-Process Crafted</div>
-  <div class="ti"><span class="ti-icon">🌱</span> No Synthetics, Ever</div>
-  <div class="ti"><span class="ti-icon">🇮🇳</span> Handmade in India</div>
-  <div class="ti"><span class="ti-icon">🤝</span> Ethical Sourcing</div>
+  <div class="ti"><span class="ti-icon">🌿</span><span data-i18n="trust.1"> 100% Natural Ingredients</span></div>
+  <div class="ti"><span class="ti-icon">🧪</span><span data-i18n="trust.2"> Cold-Process Crafted</span></div>
+  <div class="ti"><span class="ti-icon">🌱</span><span data-i18n="trust.3"> No Synthetics, Ever</span></div>
+  <div class="ti"><span class="ti-icon">🇮🇳</span><span data-i18n="trust.4"> Handmade in India</span></div>
+  <div class="ti"><span class="ti-icon">🤝</span><span data-i18n="trust.5"> Ethical Sourcing</span></div>
 </div>
 
 <!-- ═══════════════════════════════════════════════
@@ -1458,13 +1623,13 @@ nav.solid .nav-hamburger span{background:var(--forest)}
 <section class="philosophy" id="about">
   <div class="phil-number" aria-hidden="true">02</div>
   <div class="phil-inner">
-    <div class="phil-label rv">Philosophy</div>
+    <div class="phil-label rv"><span data-i18n="section.phil">Philosophy</span></div>
 
     <div class="phil-quote">
-      <div class="reveal-line"><span>Why do effective skincare products</span></div>
-      <div class="reveal-line" style="transition-delay:0.15s"><span>come with ingredients <em>you can't pronounce?</em></span></div>
-      <div class="reveal-line" style="transition-delay:0.3s"><span>We asked that question. Then we</span></div>
-      <div class="reveal-line" style="transition-delay:0.45s"><span>went back to <em>the roots.</em></span></div>
+      <div class="reveal-line"><span data-i18n="phil.q1">Why do effective skincare products</span></div>
+      <div class="reveal-line" style="transition-delay:0.15s"><span data-i18n="phil.q2">come with ingredients <em>you can't pronounce?</em></span></div>
+      <div class="reveal-line" style="transition-delay:0.3s"><span data-i18n="phil.q3">We asked that question. Then we</span></div>
+      <div class="reveal-line" style="transition-delay:0.45s"><span data-i18n="phil.q4">went back to <em>the roots.</em></span></div>
     </div>
 
     <div class="phil-divider rv d3">
@@ -1489,10 +1654,10 @@ nav.solid .nav-hamburger span{background:var(--forest)}
 
   <div class="ing-chapter-header">
     <div class="rv">
-      <div class="ing-chapter-label">Act III · Ingredients</div>
-      <h2 class="ing-chapter-h">Every ingredient<br>is a <em>character.</em></h2>
+      <div class="ing-chapter-label"><span data-i18n="section.ing.label">Act III · Ingredients</span></div>
+      <h2 class="ing-chapter-h"><span data-i18n="section.ing.h2">Every ingredient<br>is a <em>character.</em></span></h2>
     </div>
-    <p class="ing-chapter-sub rv d2">Not fillers. Not synthetics. Each one chosen for a reason, sourced with intention, applied with purpose.</p>
+    <p class="ing-chapter-sub rv d2"><span data-i18n="section.ing.sub">Not fillers. Not synthetics. Each one chosen for a reason, sourced with intention, applied with purpose.</span></p>
   </div>
 
   <!-- Ingredient character strip -->
@@ -1594,9 +1759,9 @@ nav.solid .nav-hamburger span{background:var(--forest)}
 <section class="ritual-section" id="ritual">
 
   <div class="ritual-header">
-    <div class="ritual-label rv">Act IV · The Ritual</div>
-    <h2 class="ritual-title rv d1">Not products.<br><em>A practice.</em></h2>
-    <p class="ritual-subtitle rv d2">Three steps, five minutes, every morning. This is what a real skincare ritual looks like.</p>
+    <div class="ritual-label rv"><span data-i18n="section.ritual.label">Act IV · The Ritual</span></div>
+    <h2 class="ritual-title rv d1"><span data-i18n="section.ritual.h2">Not products.<br><em>A practice.</em></span></h2>
+    <p class="ritual-subtitle rv d2"><span data-i18n="section.ritual.sub">Three steps, five minutes, every morning. This is what a real skincare ritual looks like.</span></p>
   </div>
 
   <div class="ritual-steps">
@@ -1658,11 +1823,11 @@ nav.solid .nav-hamburger span{background:var(--forest)}
 
   <div class="pi-header">
     <div class="rv">
-      <div class="pi-label">Act V · The Collection</div>
-      <h2 class="pi-h">Each product<br>tells a <em>story.</em></h2>
+      <div class="pi-label"><span data-i18n="section.prod.label">Act V · The Collection</span></div>
+      <h2 class="pi-h"><span data-i18n="section.prod.h2">Each product<br>tells a <em>story.</em></span></h2>
     </div>
     <a href="bighi_shop_pages.html" class="pi-view-all rv d2">
-      View All Products <span>→</span>
+      <span data-i18n="section.prod.viewall">View All Products →</span>
     </a>
   </div>
 
@@ -1795,25 +1960,25 @@ nav.solid .nav-hamburger span{background:var(--forest)}
 <section class="proof-section" id="reviews">
 
   <div class="proof-eyebrow">
-    <div class="proof-eyebrow-text rv">Real Reviews</div>
+    <div class="proof-eyebrow-text rv"><span data-i18n="proof.label">Real Reviews</span></div>
   </div>
 
   <div class="proof-stat-row">
     <div class="proof-stat rv">
       <div class="ps-num">1,200+</div>
-      <div class="ps-label">Rituals Started</div>
+      <div class="ps-label"><span data-i18n="proof.stat1">Rituals Started</span></div>
     </div>
     <div class="proof-stat rv d1">
       <div class="ps-num">4.9★</div>
-      <div class="ps-label">Average Rating</div>
+      <div class="ps-label"><span data-i18n="proof.stat2">Average Rating</span></div>
     </div>
     <div class="proof-stat rv d2">
       <div class="ps-num">68%</div>
-      <div class="ps-label">Repeat Customers</div>
+      <div class="ps-label"><span data-i18n="proof.stat3">Repeat Customers</span></div>
     </div>
     <div class="proof-stat rv d3">
       <div class="ps-num">100%</div>
-      <div class="ps-label">Natural Ingredients</div>
+      <div class="ps-label"><span data-i18n="proof.stat4">Natural Ingredients</span></div>
     </div>
   </div>
 
@@ -1867,16 +2032,16 @@ nav.solid .nav-hamburger span{background:var(--forest)}
 <section class="closing-ritual" id="contact">
   <div class="cr-parallax" id="cr-parallax"></div>
   <div class="cr-inner">
-    <div class="cr-label rv">Begin</div>
+    <div class="cr-label rv"><span data-i18n="cr.label">Begin</span></div>
     <h2 class="cr-title rv d1">
-      Your skin<br>deserves the<br><em>real thing.</em>
+      <span data-i18n="cr.title">Your skin deserves the real thing.</span>
     </h2>
     <p class="cr-subtitle rv d2">
-      Join 1,200+ customers who've made the switch to genuinely natural skincare. Your ritual starts with one bar.
+      <span data-i18n="cr.sub">Join 1,200+ customers who've made the switch to genuinely natural skincare. Your ritual starts with one bar.</span>
     </p>
     <div class="cr-actions rv d3">
       <a href="bighi_shop_pages.html" class="btn-cr-primary">
-        <span>Begin Your Ritual →</span>
+        <span><span data-i18n="cr.cta1">Begin Your Ritual →</span></span>
       </a>
       <a href="https://wa.me/c/919523180794" class="btn-cr-wa">
         💬 WhatsApp for Guidance
@@ -1914,7 +2079,7 @@ nav.solid .nav-hamburger span{background:var(--forest)}
   <div class="f-top">
     <div>
       <div class="f-logo"><img src="https://static.wixstatic.com/media/c5dfb1_9e5ef8c1985e4d54ae6e53e5b7e60dca~mv2.png/v1/fill/w_200,h_60,al_c,q_85/c5dfb1_9e5ef8c1985e4d54ae6e53e5b7e60dca~mv2.png" alt="Bighi Brothers"></div>
-      <p class="f-tagline">Handmade natural skincare crafted with love in India. Nourishing your skin with what nature intended — nothing more, nothing less.</p>
+      <p class="f-tagline"><span data-i18n="footer.tagline">Handmade natural skincare crafted with love in India. Nourishing your skin with what nature intended — nothing more, nothing less.</span></p>
       <div class="f-socials">
         <a href="https://www.instagram.com/bighibrothers/" class="fsoc">📸</a>
         <a href="https://wa.me/c/919523180794" class="fsoc">💬</a>
@@ -1922,7 +2087,7 @@ nav.solid .nav-hamburger span{background:var(--forest)}
       </div>
     </div>
     <div>
-      <div class="fcol-t">The Collection</div>
+      <div class="fcol-t"><span data-i18n="footer.h1">The Collection</span></div>
       <ul class="flinks">
         <li><a href="bighi_shop_pages.html?filter=soap">Handmade Soaps</a></li>
         <li><a href="bighi_shop_pages.html?filter=lip">Lip Balms</a></li>
@@ -1932,7 +2097,7 @@ nav.solid .nav-hamburger span{background:var(--forest)}
       </ul>
     </div>
     <div>
-      <div class="fcol-t">Studio</div>
+      <div class="fcol-t"><span data-i18n="footer.h2">Studio</span></div>
       <ul class="flinks">
         <li><a href="https://vibhakar007.wixsite.com/bighibrothers/about-us">Our Story</a></li>
         <li><a href="https://vibhakar007.wixsite.com/bighibrothers/whybighibrothers">Why Bighi Brothers</a></li>
@@ -1942,12 +2107,12 @@ nav.solid .nav-hamburger span{background:var(--forest)}
       </ul>
     </div>
     <div>
-      <div class="fcol-t">Connect</div>
+      <div class="fcol-t"><span data-i18n="footer.h3">Connect</span></div>
       <div class="fc-item"><span class="fc-ic">📞</span><span>+91 89279 4459</span></div>
       <div class="fc-item"><span class="fc-ic">✉️</span><span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fa98939d92939888958e929f8889ba9d979b9396d4999597">[email&#160;protected]</a></span></div>
       <div class="fc-item"><span class="fc-ic">💬</span><span>WhatsApp: +91 95231 80794</span></div>
       <div style="margin-top:20px">
-        <div class="fcol-t">Newsletter</div>
+        <div class="fcol-t"><span data-i18n="footer.h4">Newsletter</span></div>
         <div style="display:flex;gap:6px;margin-top:10px">
           <input type="email" placeholder="your@email.com" style="flex:1;padding:9px 12px;background:rgba(245,239,224,0.06);border:1px solid rgba(245,239,224,0.1);color:rgba(245,239,224,0.7);font-family:'EB Garamond',serif;border-radius:1px;font-size:0.86rem;outline:none">
           <button style="background:var(--amber);color:white;border:none;padding:9px 16px;border-radius:1px;cursor:pointer;font-family:'Cormorant Garamond',serif;font-size:0.76rem;letter-spacing:0.12em;text-transform:uppercase;transition:background 0.3s" onmouseover="this.style.background='#1C3A2E'" onmouseout="this.style.background='var(--amber)'">Join</button>
@@ -1956,7 +2121,7 @@ nav.solid .nav-hamburger span{background:var(--forest)}
     </div>
   </div>
   <div class="f-bottom">
-    <span>© 2026 Bighi Brothers Industries Pvt. Ltd. · Crafted with ♥ in India</span>
+    <span><span data-i18n="footer.copy">© 2026 Bighi Brothers Industries Pvt. Ltd. · Crafted with ♥ in India</span></span>
     <div style="display:flex;align-items:center;gap:12px">
       <a href="#" style="color:rgba(245,239,224,0.28);text-decoration:none">Privacy</a>
       <a href="#" style="color:rgba(245,239,224,0.28);text-decoration:none">Terms</a>
@@ -2354,10 +2519,13 @@ window.addEventListener('resize', () => {
   if (window.innerWidth > 900) closeDrawer();
 });
 
+
+
 /* ── THEME TOGGLE ───────────────────────────── */
 (function initTheme() {
   const saved = localStorage.getItem('bb_theme') || 'night';
   if (saved === 'day') document.body.classList.add('day-mode');
+  /* Script is at bottom of body — DOM is ready, call directly */
   updateThumbIcon();
 })();
 
@@ -2368,76 +2536,120 @@ function toggleTheme() {
 }
 
 function updateThumbIcon() {
+  /* Show destination icon: night mode shows ☀️ (click = go day),
+     day mode shows 🌙 (click = go night) */
   const isDay = document.body.classList.contains('day-mode');
   document.querySelectorAll('.theme-toggle-thumb').forEach(t => {
     t.textContent = isDay ? '🌙' : '☀️';
   });
-}
+};
 
-/* ── LANGUAGE SELECTOR ──────────────────────── */
-const LANGS = [
-  { code:'en', flag:'🇮🇳', name:'English',   native:'English'  },
-  { code:'hi', flag:'🇮🇳', name:'Hindi',     native:'हिन्दी'     },
-  { code:'bn', flag:'🇮🇳', name:'Bengali',   native:'বাংলা'     },
-  { code:'ta', flag:'🇮🇳', name:'Tamil',     native:'தமிழ்'     },
-  { code:'te', flag:'🇮🇳', name:'Telugu',    native:'తెలుగు'    },
-  { code:'mr', flag:'🇮🇳', name:'Marathi',   native:'मराठी'     },
-  { code:'gu', flag:'🇮🇳', name:'Gujarati',  native:'ગુજરાતી'   },
-  { code:'kn', flag:'🇮🇳', name:'Kannada',   native:'ಕನ್ನಡ'     },
-];
 
+/* ── TRANSLATIONS ───────────────────────────── */
+const TRANSLATIONS = {
+  en: {
+    'ann':'🌿 Free shipping above ₹499 &nbsp;·&nbsp; <b>Use NATURAL10</b> for 10% off your first order',
+    'nav.collection':'Collection','nav.ritual':'Ritual','nav.products':'Products',
+    'nav.ingredients':'Ingredients','nav.story':'Story',
+    'hero.eyebrow':'Handcrafted India · Est. 2022',
+    'hero.title.1':'The','hero.title.2':'skin','hero.title.3':'remembers',
+    'hero.title.4':'what nature','hero.title.5':'intended.',
+    'hero.sub':"Cold-process soaps and botanical rituals, handmade in small batches from India's purest ingredients. Not skincare — a practice.",
+    'hero.cta1':'Enter the Ritual','hero.cta2':'Explore Products ↓',
+    'trust.1':' 100% Natural Ingredients','trust.2':' Cold-Process Crafted',
+    'trust.3':' No Synthetics, Ever','trust.4':' Handmade in India','trust.5':' Ethical Sourcing',
+    'section.phil':'Philosophy',
+    'phil.q1':'Why do effective skincare products',
+    'phil.q2':"come with ingredients <em>you can't pronounce?</em>",
+    'phil.q3':'We asked that question. Then we',
+    'phil.q4':'went back to <em>the roots.</em>',
+    'section.ing.label':'Act III · Ingredients',
+    'section.ing.h2':'Every ingredient<br>is a <em>character.</em>',
+    'section.ing.sub':'Not fillers. Not synthetics. Each one chosen for a reason, sourced with intention, applied with purpose.',
+    'section.ritual.label':'Act IV · The Ritual',
+    'section.ritual.h2':'Not products.<br><em>A practice.</em>',
+    'section.ritual.sub':'Three steps, five minutes, every morning. This is what a real skincare ritual looks like.',
+    'section.prod.label':'Act V · The Collection',
+    'section.prod.h2':'Each product<br>tells a <em>story.</em>',
+    'section.prod.viewall':'View All Products →',
+    'proof.label':'Real Reviews',
+    'proof.stat1':'Rituals Started','proof.stat2':'Average Rating',
+    'proof.stat3':'Repeat Customers','proof.stat4':'Natural Ingredients',
+    'cr.label':'Begin',
+    'cr.title':'Your skin deserves the real thing.',
+    'cr.sub':"Join 1,200+ customers who've made the switch to genuinely natural skincare. Your ritual starts with one bar.",
+    'cr.cta1':'Begin Your Ritual →',
+    'footer.tagline':'Handmade natural skincare crafted with love in India. Nourishing your skin with what nature intended — nothing more, nothing less.',
+    'footer.h1':'The Collection','footer.h2':'Studio',
+    'footer.h3':'Connect','footer.h4':'Newsletter',
+    'footer.copy':'© 2026 Bighi Brothers Industries Pvt. Ltd. · Crafted with ♥ in India',
+  },
+  hi: {
+    'ann':'🌿 ₹499 से ऊपर मुफ़्त डिलीवरी &nbsp;·&nbsp; <b>NATURAL10</b> से पहले ऑर्डर पर 10% छूट',
+    'nav.collection':'संग्रह','nav.ritual':'अनुष्ठान','nav.products':'उत्पाद',
+    'nav.ingredients':'सामग्री','nav.story':'कहानी',
+    'hero.eyebrow':'हस्तनिर्मित भारत · स्थापना 2022',
+    'hero.title.1':'त्वचा','hero.title.2':'याद करती है','hero.title.3':'वो जो',
+    'hero.title.4':'प्रकृति ने','hero.title.5':'चाहा था।',
+    'hero.sub':"शुद्ध भारतीय सामग्री से हाथ से बने, कोल्ड-प्रोसेस साबुन और वनस्पति अनुष्ठान। यह स्किनकेयर नहीं — एक साधना है।",
+    'hero.cta1':'अनुष्ठान में प्रवेश करें','hero.cta2':'उत्पाद देखें ↓',
+    'trust.1':' 100% प्राकृतिक सामग्री','trust.2':' कोल्ड-प्रोसेस निर्मित',
+    'trust.3':' कोई कृत्रिम तत्व नहीं','trust.4':' भारत में हस्तनिर्मित','trust.5':' नैतिक सोर्सिंग',
+    'section.phil':'दर्शन',
+    'phil.q1':'प्रभावी स्किनकेयर में',
+    'phil.q2':"<em>ऐसी सामग्री क्यों जो समझ न आए?</em>",
+    'phil.q3':'हमने यह सवाल पूछा। फिर हम',
+    'phil.q4':'<em>जड़ों की ओर</em> लौट गए।',
+    'section.ing.label':'अध्याय तीन · सामग्री',
+    'section.ing.h2':'हर सामग्री एक<br><em>किरदार है।</em>',
+    'section.ing.sub':'भराव नहीं। कृत्रिम नहीं। हर एक को एक कारण से चुना गया।',
+    'section.ritual.label':'अध्याय चार · अनुष्ठान',
+    'section.ritual.h2':'उत्पाद नहीं।<br><em>एक साधना।</em>',
+    'section.ritual.sub':'तीन कदम, पाँच मिनट, हर सुबह। यही असली त्वचा देखभाल की दिनचर्या है।',
+    'section.prod.label':'अध्याय पाँच · संग्रह',
+    'section.prod.h2':'हर उत्पाद एक<br><em>कहानी कहता है।</em>',
+    'section.prod.viewall':'सभी उत्पाद देखें →',
+    'proof.label':'असली समीक्षाएं',
+    'proof.stat1':'अनुष्ठान शुरू हुए','proof.stat2':'औसत रेटिंग',
+    'proof.stat3':'दोबारा खरीदने वाले','proof.stat4':'प्राकृतिक सामग्री',
+    'cr.label':'शुरुआत',
+    'cr.title':'आपकी त्वचा असली चीज़ की हकदार है।',
+    'cr.sub':"1,200+ ग्राहक प्राकृतिक त्वचा देखभाल की ओर आ चुके हैं। आपकी साधना एक साबुन से शुरू होती है।",
+    'cr.cta1':'अपना अनुष्ठान शुरू करें →',
+    'footer.tagline':'भारत में प्यार से बनी हस्तनिर्मित प्राकृतिक स्किनकेयर।',
+    'footer.h1':'संग्रह','footer.h2':'स्टूडियो',
+    'footer.h3':'संपर्क','footer.h4':'न्यूज़लेटर',
+    'footer.copy':'© 2026 बिघी ब्रदर्स · भारत में ♥ से बना',
+  }
+};
+/* ── LANGUAGE PILL ──────────────────────────── */
 let currentLang = localStorage.getItem('bb_lang') || 'en';
 
-function initLangDropdowns() {
-  // Build dropdown HTML for every .lang-select-wrap
-  document.querySelectorAll('.lang-select-wrap').forEach(wrap => {
-    const dropdown = wrap.querySelector('.lang-dropdown');
-    if (!dropdown) return;
-    dropdown.innerHTML = LANGS.map(l => `
-      <div class="lang-option ${l.code === currentLang ? 'active' : ''}"
-           onclick="selectLang('${l.code}',this)">
-        <span class="lang-option-flag">${l.flag}</span>
-        <span class="lang-option-name">${l.name}</span>
-        <span class="lang-option-native">${l.native}</span>
-      </div>`).join('');
+function applyTranslations(lang) {
+  const T = TRANSLATIONS[lang] || TRANSLATIONS.en;
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.getAttribute('data-i18n');
+    if (T[key] !== undefined) el.innerHTML = T[key];
   });
-  updateLangBtnLabel();
-
-  // Close on outside click
-  document.addEventListener('click', e => {
-    if (!e.target.closest('.lang-select-wrap')) {
-      document.querySelectorAll('.lang-select-wrap').forEach(w => w.classList.remove('open'));
-    }
-  });
+  const pill = document.getElementById('lang-pill');
+  if (pill) pill.setAttribute('data-active', lang);
+  document.documentElement.lang = lang === 'hi' ? 'hi' : 'en';
 }
 
-function toggleLang(el) {
-  const wrap = el.closest('.lang-select-wrap');
-  const isOpen = wrap.classList.contains('open');
-  document.querySelectorAll('.lang-select-wrap').forEach(w => w.classList.remove('open'));
-  if (!isOpen) wrap.classList.add('open');
+function toggleLang() {
+  currentLang = currentLang === 'en' ? 'hi' : 'en';
+  localStorage.setItem('bb_lang', currentLang);
+  applyTranslations(currentLang);
 }
 
-function selectLang(code, optEl) {
-  currentLang = code;
-  localStorage.setItem('bb_lang', code);
-  // Mark active
-  document.querySelectorAll('.lang-option').forEach(o => o.classList.remove('active'));
-  document.querySelectorAll(`.lang-option`).forEach(o => {
-    if (o.textContent.includes(LANGS.find(l=>l.code===code).name)) o.classList.add('active');
-  });
-  updateLangBtnLabel();
-  document.querySelectorAll('.lang-select-wrap').forEach(w => w.classList.remove('open'));
+function initLang() {
+  applyTranslations(currentLang);
+  updateThumbIcon();
 }
 
-function updateLangBtnLabel() {
-  const lang = LANGS.find(l => l.code === currentLang) || LANGS[0];
-  document.querySelectorAll('.lang-btn-label').forEach(el => {
-    el.textContent = lang.native;
-  });
-}
+window.addEventListener('load', initLang);
 
-window.addEventListener('load', initLangDropdowns);
+
 
 
 </script>
