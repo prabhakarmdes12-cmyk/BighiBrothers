@@ -1089,12 +1089,21 @@ footer{background:var(--charcoal);padding:80px 80px 40px}
   footer{padding:60px 32px 32px}
 }
 @media(max-width:900px){
-  .hero-inner{padding:0 28px;padding-top:110px}
+  /* NAV */
+  nav,nav.solid{padding:14px 20px}
+  .nav-links{display:none}
+  .nav-cta{display:none}
+  .nav-hamburger{display:flex}
+
+  /* HERO */
+  .hero-inner{padding:0 20px;padding-top:90px}
   .hero-product-float{display:none}
-  .philosophy{padding:100px 28px}
+
+  /* SECTIONS */
+  .philosophy{padding:72px 20px}
   .phil-number{display:none}
   .ingredients-chapter,.ritual-section,.products-immersive,
-  .proof-section,.closing-ritual{padding:100px 28px}
+  .proof-section,.closing-ritual{padding:72px 20px}
   .ing-chapter-header{flex-direction:column;align-items:flex-start;gap:16px}
   .ing-chapter-sub{text-align:left}
   .ing-strip{grid-template-columns:repeat(2,1fr)}
@@ -1102,21 +1111,88 @@ footer{background:var(--charcoal);padding:80px 80px 40px}
   .ritual-steps{grid-template-columns:1fr}
   .pi-header{flex-direction:column;align-items:flex-start;gap:16px}
   .pi-editorial{grid-template-columns:1fr}
-  .icard.large .icard-visual{min-height:500px}
+  .icard.large .icard-visual{min-height:400px}
   .proof-stat-row{gap:40px}
   .proof-reviews{grid-template-columns:1fr}
   .cr-stats{gap:36px}
-  .nav-links{display:none}
   .f-top{grid-template-columns:1fr;gap:32px}
   footer{padding:48px 20px 24px}
 }
 @media(max-width:600px){
-  .ing-strip{grid-template-columns:1fr 1fr}
+  /* HERO */
+  .hero-inner{padding-top:80px}
+  .hero-sub{font-size:1rem;margin-bottom:32px}
+  .hero-ctas{flex-direction:column;align-items:flex-start;gap:12px}
+  .btn-ritual,.btn-ritual-ghost{font-size:0.76rem;padding:13px 28px}
+
+  /* SECTIONS */
+  .ing-strip{grid-template-columns:1fr}
+  .ing-char{padding:20px 16px}
   .ing-promises{grid-template-columns:1fr}
+  .ing-promise{padding:20px 16px}
   .trust{display:none}
-  .cr-stats{flex-direction:column;align-items:center;gap:28px}
-  .hero-ctas{flex-direction:column;align-items:flex-start}
+  .cr-stats{flex-direction:column;align-items:center;gap:20px}
+  .proof-stat-row{grid-template-columns:1fr 1fr;gap:24px;display:grid}
+  .ritual-steps{gap:24px}
+  .rstep{padding:28px 20px}
+  .cr-title{font-size:clamp(2rem,8vw,3rem)}
+  .f-top{gap:28px}
 }
+
+/* MOBILE DRAWER */
+.nav-hamburger{
+  display:none;
+  flex-direction:column;justify-content:center;gap:5px;
+  background:none;border:none;cursor:pointer;
+  padding:6px;z-index:9999;
+}
+.nav-hamburger span{
+  display:block;width:22px;height:1.5px;
+  background:rgba(245,239,224,0.85);
+  transition:all 0.35s cubic-bezier(0.25,0.46,0.45,0.94);
+  transform-origin:center;
+}
+nav.solid .nav-hamburger span{background:var(--forest)}
+.nav-hamburger.open span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}
+.nav-hamburger.open span:nth-child(2){opacity:0;transform:scaleX(0)}
+.nav-hamburger.open span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+
+.nav-drawer{
+  position:fixed;inset:0;z-index:9000;
+  display:flex;flex-direction:column;
+  background:var(--forest2);
+  padding:90px 36px 48px;
+  transform:translateX(100%);
+  transition:transform 0.45s cubic-bezier(0.25,0.46,0.45,0.94);
+}
+.nav-drawer.open{transform:translateX(0)}
+.nav-drawer-links{
+  display:flex;flex-direction:column;gap:0;
+  list-style:none;
+  border-top:1px solid rgba(245,239,224,0.08);
+}
+.nav-drawer-links li{
+  border-bottom:1px solid rgba(245,239,224,0.08);
+}
+.nav-drawer-links a{
+  display:block;padding:20px 0;
+  font-family:'Playfair Display',serif;font-size:1.6rem;
+  font-style:italic;color:var(--cream);text-decoration:none;
+  transition:color 0.3s,padding-left 0.3s;
+}
+.nav-drawer-links a:hover{color:var(--amberl);padding-left:8px}
+.nav-drawer-cta{
+  margin-top:auto;display:flex;flex-direction:column;gap:12px;
+}
+.nav-drawer-cta a{
+  display:flex;align-items:center;justify-content:center;
+  padding:14px 24px;font-family:'Cormorant Garamond',serif;
+  font-size:0.82rem;letter-spacing:0.18em;text-transform:uppercase;
+  text-decoration:none;border-radius:1px;transition:all 0.3s;
+}
+.nav-drawer-cta .dc-primary{background:var(--amber);color:white}
+.nav-drawer-cta .dc-primary:hover{background:var(--forest)}
+.nav-drawer-cta .dc-wa{background:rgba(37,211,102,0.15);color:#25D366;border:1px solid rgba(37,211,102,0.3)}
 
 #veil {
   display: none !important;
@@ -1139,7 +1215,7 @@ footer{background:var(--charcoal);padding:80px 80px 40px}
 <!-- NAV -->
 <nav id="nav">
   <a href="#" class="nav-logo">
-    <img src="Bighi Brothers Logo.png" alt="Bighi Brothers">
+    <img src="https://static.wixstatic.com/media/c5dfb1_9e5ef8c1985e4d54ae6e53e5b7e60dca~mv2.png/v1/fill/w_200,h_60,al_c,q_85/c5dfb1_9e5ef8c1985e4d54ae6e53e5b7e60dca~mv2.png" alt="Bighi Brothers">
   </a>
   <ul class="nav-links">
     <li><a href="bighi_shop_pages.html">Collection</a></li>
@@ -1154,8 +1230,26 @@ footer{background:var(--charcoal);padding:80px 80px 40px}
       <span class="nav-cart-badge" id="nav-cart-badge">0</span>
     </button>
     <a href="bighi_shop_pages.html" class="nav-cta">Begin Ritual →</a>
+    <button class="nav-hamburger" id="nav-hamburger" onclick="toggleDrawer()" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
   </div>
 </nav>
+
+<!-- Mobile Drawer -->
+<div class="nav-drawer" id="nav-drawer">
+  <ul class="nav-drawer-links">
+    <li><a href="bighi_shop_pages.html" onclick="closeDrawer()">Collection</a></li>
+    <li><a href="#ritual" onclick="closeDrawer()">Ritual</a></li>
+    <li><a href="#products" onclick="closeDrawer()">Products</a></li>
+    <li><a href="#ingredients" onclick="closeDrawer()">Ingredients</a></li>
+    <li><a href="#about" onclick="closeDrawer()">Story</a></li>
+  </ul>
+  <div class="nav-drawer-cta">
+    <a href="bighi_shop_pages.html" class="dc-primary">Begin Ritual →</a>
+    <a href="https://wa.me/c/919523180794" target="_blank" class="dc-wa">💬 WhatsApp Us</a>
+  </div>
+</div>
 
 <!-- ═══════════════════════════════════════════════
      SECTION 1: AWAKENING — CINEMATIC HERO
@@ -2113,6 +2207,40 @@ function showHomepageToast(name) {
   const cart = JSON.parse(localStorage.getItem('bb_cart') || '[]');
   updateNavBadge(cart);
 })();
+
+/* ── 14. MOBILE DRAWER ──────────────────────────── */
+function toggleDrawer() {
+  const drawer = document.getElementById('nav-drawer');
+  const burger = document.getElementById('nav-hamburger');
+  const isOpen = drawer.classList.contains('open');
+  if (isOpen) {
+    drawer.classList.remove('open');
+    burger.classList.remove('open');
+    document.body.style.overflow = '';
+  } else {
+    drawer.classList.add('open');
+    burger.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+}
+
+function closeDrawer() {
+  const drawer = document.getElementById('nav-drawer');
+  const burger = document.getElementById('nav-hamburger');
+  drawer.classList.remove('open');
+  burger.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Close drawer on backdrop click (outside the links)
+document.getElementById('nav-drawer').addEventListener('click', function(e) {
+  if (e.target === this) closeDrawer();
+});
+
+// Close drawer on resize to desktop
+window.addEventListener('resize', () => {
+  if (window.innerWidth > 900) closeDrawer();
+});
 
 </script>
 
