@@ -37,6 +37,7 @@ body{
   cursor:none;
 }
 
+
 /* ─── NOISE LAYER ──────────────────────────────── */
 #noise-layer{
   position:fixed;inset:0;pointer-events:none;z-index:9998;
@@ -121,6 +122,26 @@ nav.solid .nav-links a{color:var(--forest)}
 }
 .nav-cta:hover{background:var(--forest);transform:translateY(-1px)}
 nav:not(.solid) .nav-cta{background:rgba(200,131,26,0.9)}
+
+/* ─── CART ICON + BADGE ────────────────────────── */
+.nav-cart-btn{
+  position:relative;background:none;border:none;cursor:none;
+  padding:6px 8px;color:rgba(245,239,224,0.7);font-size:1.05rem;
+  transition:color 0.3s;line-height:1;
+}
+nav.solid .nav-cart-btn{color:var(--forest)}
+.nav-cart-btn:hover{color:var(--amber)}
+.nav-cart-badge{
+  position:absolute;top:-1px;right:-1px;
+  min-width:16px;height:16px;padding:0 4px;
+  background:var(--amber);border-radius:100px;
+  font-family:'DM Mono',monospace;font-size:0.5rem;
+  color:white;display:flex;align-items:center;justify-content:center;
+  opacity:0;transform:scale(0);
+  transition:opacity 0.3s var(--ease),transform 0.3s var(--ease);
+  pointer-events:none;
+}
+.nav-cart-badge.show{opacity:1;transform:scale(1)}
 
 /* ═══════════════════════════════════════════════════
    SECTION 1: AWAKENING — HERO
@@ -1097,6 +1118,9 @@ footer{background:var(--charcoal);padding:80px 80px 40px}
   .hero-ctas{flex-direction:column;align-items:flex-start}
 }
 
+#veil {
+  display: none !important;
+}
 </style>
 </head>
 <body>
@@ -1115,16 +1139,20 @@ footer{background:var(--charcoal);padding:80px 80px 40px}
 <!-- NAV -->
 <nav id="nav">
   <a href="#" class="nav-logo">
-    <img src="Bighi Brothers Logo.png" alt="Bighi Brothers">
+    <img src="https://static.wixstatic.com/media/c5dfb1_9e5ef8c1985e4d54ae6e53e5b7e60dca~mv2.png/v1/fill/w_200,h_60,al_c,q_85/c5dfb1_9e5ef8c1985e4d54ae6e53e5b7e60dca~mv2.png" alt="Bighi Brothers">
   </a>
   <ul class="nav-links">
-     
+    <li><a href="bighi_shop_pages.html">Collection</a></li>
     <li><a href="#ritual">Ritual</a></li>
     <li><a href="#products">Products</a></li>
     <li><a href="#ingredients">Ingredients</a></li>
     <li><a href="#about">Story</a></li>
   </ul>
   <div class="nav-right">
+    <button class="nav-cart-btn" id="nav-cart-btn" onclick="window.location.href='bighi_shop_pages.html'" title="View Cart">
+      🛒
+      <span class="nav-cart-badge" id="nav-cart-badge">0</span>
+    </button>
     <a href="bighi_shop_pages.html" class="nav-cta">Begin Ritual →</a>
   </div>
 </nav>
@@ -1200,7 +1228,7 @@ footer{background:var(--charcoal);padding:80px 80px 40px}
     </div>
     <div class="hpf-footer">
       <div class="hpf-price">₹50</div>
-      <button class="btn-hpf" onclick="window.location.href='https://vibhakar007.wixsite.com/bighibrothers/shop-all'">Add to Ritual →</button>
+      <button class="btn-hpf" onclick="window.location.href='bighi_shop_pages.html?product=marigold'">Add to Ritual →</button>
     </div>
   </div>
 
@@ -1376,7 +1404,7 @@ footer{background:var(--charcoal);padding:80px 80px 40px}
         <li>Marigold Mountain Soap</li>
         <li>Café Vanilla Scrub (3× week)</li>
       </ul>
-      <a href="https://vibhakar007.wixsite.com/bighibrothers/shop-all" class="rstep-cta">
+      <a href="bighi_shop_pages.html?filter=soap" class="rstep-cta">
         Shop Cleansers <span>→</span>
       </a>
     </div>
@@ -1391,7 +1419,7 @@ footer{background:var(--charcoal);padding:80px 80px 40px}
         <li>Shea Repair Cream</li>
         <li>Nourishing Body Butter</li>
       </ul>
-      <a href="https://vibhakar007.wixsite.com/bighibrothers/shop-all" class="rstep-cta">
+      <a href="bighi_shop_pages.html?filter=cream" class="rstep-cta">
         Shop Treatments <span>→</span>
       </a>
     </div>
@@ -1406,7 +1434,7 @@ footer{background:var(--charcoal);padding:80px 80px 40px}
         <li>Peach Cocoa Lip Balm</li>
         <li>Bighi Bee Lip Balm</li>
       </ul>
-      <a href="https://vibhakar007.wixsite.com/bighibrothers/shop-all" class="rstep-cta">
+      <a href="bighi_shop_pages.html?filter=lip" class="rstep-cta">
         Shop Lip Care <span>→</span>
       </a>
     </div>
@@ -1427,7 +1455,7 @@ footer{background:var(--charcoal);padding:80px 80px 40px}
       <div class="pi-label">Act V · The Collection</div>
       <h2 class="pi-h">Each product<br>tells a <em>story.</em></h2>
     </div>
-    <a href="https://vibhakar007.wixsite.com/bighibrothers/shop-all" class="pi-view-all rv d2">
+    <a href="bighi_shop_pages.html" class="pi-view-all rv d2">
       View All Products <span>→</span>
     </a>
   </div>
@@ -1436,7 +1464,7 @@ footer{background:var(--charcoal);padding:80px 80px 40px}
   <div class="pi-editorial rv-scale">
 
     <!-- Featured large card -->
-    <a href="https://vibhakar007.wixsite.com/bighibrothers/shop-all" class="icard large">
+    <a href="bighi_shop_pages.html?product=marigold" class="icard large">
       <div class="icard-visual">
         <img class="icard-img"
           src="https://static.wixstatic.com/media/c5dfb1_ad2f64c79c5549cca0a87e0dca34f038~mv2.jpg/v1/fill/w_800,h_1000,al_c,q_85/c5dfb1_ad2f64c79c5549cca0a87e0dca34f038~mv2.jpg"
@@ -1460,14 +1488,14 @@ footer{background:var(--charcoal);padding:80px 80px 40px}
           <div class="icard-tagline">A cold-process bar built for acne-prone skin. Turmeric brightens from day one. Neem clears bacteria without stripping.</div>
           <div class="icard-footer">
             <div class="icard-price">₹50 / 90gm</div>
-            <button class="btn-icard-add" onclick="event.preventDefault();event.stopPropagation();alert('Added to ritual! ✦')">Add to Ritual →</button>
+            <button class="btn-icard-add" onclick="event.preventDefault();event.stopPropagation();addToHomepageCart('Marigold Mountain Soap',50)">Add to Ritual →</button>
           </div>
         </div>
       </div>
     </a>
 
     <!-- Small card 1 -->
-    <a href="https://vibhakar007.wixsite.com/bighibrothers/shop-all" class="icard small">
+    <a href="bighi_shop_pages.html?product=coffee" class="icard small">
       <div class="icard-visual">
         <img class="icard-img"
           src="https://static.wixstatic.com/media/c5dfb1_c1e2c0d4c2a14c31ab57dfc2edc32e4e~mv2.jpg/v1/fill/w_600,h_600,al_c,q_85/c5dfb1_c1e2c0d4c2a14c31ab57dfc2edc32e4e~mv2.jpg"
@@ -1488,14 +1516,14 @@ footer{background:var(--charcoal);padding:80px 80px 40px}
           <div class="icard-tagline">Coffee grounds + Vitamin E. Resurfaces dull skin. Fades marks over time.</div>
           <div class="icard-footer">
             <div class="icard-price">₹50</div>
-            <button class="btn-icard-add" onclick="event.preventDefault();event.stopPropagation();alert('Added!')">Add →</button>
+            <button class="btn-icard-add" onclick="event.preventDefault();event.stopPropagation();addToHomepageCart('Café Vanilla Scrub',50)">Add →</button>
           </div>
         </div>
       </div>
     </a>
 
     <!-- Small card 2 -->
-    <a href="https://vibhakar007.wixsite.com/bighibrothers/shop-all" class="icard small">
+    <a href="bighi_shop_pages.html?product=peach-lip" class="icard small">
       <div class="icard-visual">
         <img class="icard-img"
           src="https://static.wixstatic.com/media/c5dfb1_f4e4bf5bdb4541caa5a6a9e4c7f3a8b2~mv2.jpg/v1/fill/w_600,h_600,al_c,q_85/c5dfb1_f4e4bf5bdb4541caa5a6a9e4c7f3a8b2~mv2.jpg"
@@ -1516,14 +1544,14 @@ footer{background:var(--charcoal);padding:80px 80px 40px}
           <div class="icard-tagline">8-hour moisture seal. Cocoa butter + peach + castor. The last step that completes every ritual.</div>
           <div class="icard-footer">
             <div class="icard-price">₹50</div>
-            <button class="btn-icard-add" onclick="event.preventDefault();event.stopPropagation();alert('Added!')">Add →</button>
+            <button class="btn-icard-add" onclick="event.preventDefault();event.stopPropagation();addToHomepageCart('Peach Cocoa Lip Balm',50)">Add →</button>
           </div>
         </div>
       </div>
     </a>
 
     <!-- Small card 3 -->
-    <a href="https://vibhakar007.wixsite.com/bighibrothers/shop-all" class="icard small">
+    <a href="bighi_shop_pages.html?product=rose" class="icard small">
       <div class="icard-visual" style="background:#2a1a0e">
         <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;font-size:6rem;opacity:0.3">🌹</div>
         <div class="icard-overlay"></div>
@@ -1641,7 +1669,7 @@ footer{background:var(--charcoal);padding:80px 80px 40px}
       Join 1,200+ customers who've made the switch to genuinely natural skincare. Your ritual starts with one bar.
     </p>
     <div class="cr-actions rv d3">
-      <a href="https://vibhakar007.wixsite.com/bighibrothers/shop-all" class="btn-cr-primary">
+      <a href="bighi_shop_pages.html" class="btn-cr-primary">
         <span>Begin Your Ritual →</span>
       </a>
       <a href="https://wa.me/c/919523180794" class="btn-cr-wa">
@@ -1690,11 +1718,11 @@ footer{background:var(--charcoal);padding:80px 80px 40px}
     <div>
       <div class="fcol-t">The Collection</div>
       <ul class="flinks">
-        <li><a href="https://vibhakar007.wixsite.com/bighibrothers/shop-all">Handmade Soaps</a></li>
-        <li><a href="https://vibhakar007.wixsite.com/bighibrothers/shop-all">Lip Balms</a></li>
-        <li><a href="https://vibhakar007.wixsite.com/bighibrothers/shop-all">Moisturising Creams</a></li>
-        <li><a href="https://vibhakar007.wixsite.com/bighibrothers/shop-all">Hair Care</a></li>
-        <li><a href="https://vibhakar007.wixsite.com/bighibrothers/shop-all">Gift Sets</a></li>
+        <li><a href="bighi_shop_pages.html?filter=soap">Handmade Soaps</a></li>
+        <li><a href="bighi_shop_pages.html?filter=lip">Lip Balms</a></li>
+        <li><a href="bighi_shop_pages.html?filter=cream">Moisturising Creams</a></li>
+        <li><a href="bighi_shop_pages.html?filter=hair">Hair Care</a></li>
+        <li><a href="bighi_shop_pages.html">Gift Sets</a></li>
       </ul>
     </div>
     <div>
@@ -1710,7 +1738,7 @@ footer{background:var(--charcoal);padding:80px 80px 40px}
     <div>
       <div class="fcol-t">Connect</div>
       <div class="fc-item"><span class="fc-ic">📞</span><span>+91 89279 4459</span></div>
-      <div class="fc-item"><span class="fc-ic">✉️</span><span>bighibrothers@gmail.com</span></div>
+      <div class="fc-item"><span class="fc-ic">✉️</span><span><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="fa98939d92939888958e929f8889ba9d979b9396d4999597">[email&#160;protected]</a></span></div>
       <div class="fc-item"><span class="fc-ic">💬</span><span>WhatsApp: +91 95231 80794</span></div>
       <div style="margin-top:20px">
         <div class="fcol-t">Newsletter</div>
@@ -1737,7 +1765,7 @@ footer{background:var(--charcoal);padding:80px 80px 40px}
 <!-- WhatsApp float -->
 <a href="https://wa.me/c/919523180794" class="wa" target="_blank" rel="noopener">💬</a>
 
-<script>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
 /* ═══════════════════════════════════════════════════
    BIGHI BROTHERS — IMMERSIVE MOTION ENGINE v2
    Fixed: variable hoisting, scroll conflicts, cursor
@@ -2027,10 +2055,64 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
 if (window.matchMedia('(prefers-reduced-motion:reduce)').matches) {
   document.querySelectorAll('.rv,.rv-up,.rv-scale').forEach(el => el.classList.add('on'));
   document.querySelectorAll('.reveal-line span').forEach(s => s.classList.add('on'));
+  document.querySelectorAll('.ing-char').forEach(c => c.classList.add('on'));
   if (curEl)     curEl.style.display = 'none';
   if (curRingEl) curRingEl.style.display = 'none';
   document.body.style.cursor = 'auto';
 }
+
+/* ── 13. HOMEPAGE CART — shared localStorage with shop pages ── */
+function addToHomepageCart(name, price) {
+  const cart = JSON.parse(localStorage.getItem('bb_cart') || '[]');
+  const existing = cart.find(i => i.name === name);
+  if (existing) existing.qty++;
+  else cart.push({ name, price, qty: 1 });
+  localStorage.setItem('bb_cart', JSON.stringify(cart));
+  updateNavBadge(cart);
+  showHomepageToast(name);
+}
+
+function updateNavBadge(cart) {
+  const total = (cart || JSON.parse(localStorage.getItem('bb_cart') || '[]'))
+    .reduce((s, i) => s + i.qty, 0);
+  const badge = document.getElementById('nav-cart-badge');
+  if (!badge) return;
+  badge.textContent = total;
+  badge.classList.toggle('show', total > 0);
+}
+
+function showHomepageToast(name) {
+  const t = document.createElement('div');
+  t.style.cssText = [
+    'position:fixed', 'bottom:88px', 'right:24px', 'z-index:9000',
+    'background:var(--forest)', 'color:var(--cream)',
+    'padding:12px 22px',
+    'font-family:"Cormorant Garamond",serif',
+    'font-size:0.84rem', 'letter-spacing:0.08em',
+    'border-radius:2px',
+    'box-shadow:0 8px 32px rgba(28,58,46,0.28)',
+    'opacity:0', 'transform:translateY(12px)',
+    'transition:all .38s cubic-bezier(0.25,0.46,0.45,0.94)',
+    'pointer-events:none'
+  ].join(';');
+  t.textContent = '✦ ' + name + ' added to ritual';
+  document.body.appendChild(t);
+  requestAnimationFrame(() => {
+    t.style.opacity = '1';
+    t.style.transform = 'translateY(0)';
+  });
+  setTimeout(() => {
+    t.style.opacity = '0';
+    t.style.transform = 'translateY(8px)';
+    setTimeout(() => t.remove(), 420);
+  }, 2400);
+}
+
+// Sync badge on load — cart may already have items from shop pages
+(function syncBadgeOnLoad() {
+  const cart = JSON.parse(localStorage.getItem('bb_cart') || '[]');
+  updateNavBadge(cart);
+})();
 
 </script>
 
